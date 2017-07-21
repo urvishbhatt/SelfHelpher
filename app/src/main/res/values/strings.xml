@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Self Helpher</string>
+    <string name="subselect_main_text">4 Pillars of life</string>
+    <string name="subselect_main_text2">make them stronger with ours course</string>
+
+
+    <string name="health">health</string>
+    <string name="wealth">wealth</string>
+    <string name="love">love</string>
+    <string name="happiness">happiness</string>
+
+
+    <string name="enroll">Enroll</string>
+
+    <string name="delete">delete</string>
+
+
+</resources>
