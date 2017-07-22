@@ -56,13 +56,8 @@ public class Courselib extends AppCompatActivity implements CourselibAdpater.Lis
 
         recyclerView = (RecyclerView)findViewById(R.id.course_lib_recycleview);
 
-
         databasework();
-
         youtubework();
-
-
-
 
     }
 
@@ -145,22 +140,20 @@ public class Courselib extends AppCompatActivity implements CourselibAdpater.Lis
             }
 
         }finally {
-
             cursor.close();
             YoutubelinksArray = Youtubelinks.toArray(new String[Youtubelinks.size()]);
-
         }
-
     }
 
     @Override
     public void onListItemClick(int clickedItemIndex) {
 
+        String plylistid = Youtubelinks.get(clickedItemIndex);
+
         Intent intent = new Intent(Courselib.this,CourseWindow.class);
+        intent.putExtra("TAG","FromCourselib");
+        intent.putExtra("plylistid",plylistid);
+
         startActivity(intent);
-
-//        String a = YoutubelinksArray[clickedItemIndex];
-//        Toast.makeText(this,a,Toast.LENGTH_SHORT).show();
-
     }
 }
