@@ -22,12 +22,26 @@
             android:name=".Courselib"
             android:parentActivityName=".SubSelect" />
         <activity android:name=".CourseWindow" />
-        <activity android:name=".MainWindow" />
+        <activity android:name=".MainWindow" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+
+        </activity>
 
         <provider
             android:name=".coursedatabase.CourseContentProvider"
             android:authorities="com.example.bhatt.selfhelpher"
             android:exported="false" />
+
+        <provider
+            android:name=".UserDatabase.UserContentProvider"
+            android:authorities="com.example.bhatt.selfhelpher.UserDatabase"
+            android:exported="false" />
+
 
         <activity android:name=".YoutubeVideo"
                   android:configChanges="orientation|keyboardHidden">

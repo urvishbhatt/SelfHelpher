@@ -69,9 +69,9 @@ public class Courselib extends AppCompatActivity implements CourselibAdpater.Lis
 
 
         new GetPlaylistTitlesAsyncTask(mYoutubeDataApi){
+
             @Override
             protected void onPostExecute(PlaylistListResponse playlistListResponse) {
-                // if we didn't receive a response for the playlist titles, then there's nothing to update
 
                 if (playlistListResponse == null) {
                     return;
@@ -82,8 +82,6 @@ public class Courselib extends AppCompatActivity implements CourselibAdpater.Lis
                         mPlaylistTitles.add(new CourselibData(playlist.getSnippet().getTitle()));
 
                     }
-
-                    // update the spinner adapter with the titles of the playlists
                 }
 
                 Toast.makeText(Courselib.this,"Toast",Toast.LENGTH_SHORT).show();
@@ -150,10 +148,21 @@ public class Courselib extends AppCompatActivity implements CourselibAdpater.Lis
 
         String plylistid = Youtubelinks.get(clickedItemIndex);
 
+        double Course_id = (subjectno + ((clickedItemIndex+1)/10));
+        double decimal = clickedItemIndex+1;
+        double decimal2 = decimal/10;
+
+        Course_id = Course_id + decimal2;
+
+        Toast.makeText(Courselib.this,String.valueOf(Course_id),Toast.LENGTH_SHORT).show();
+
         Intent intent = new Intent(Courselib.this,CourseWindow.class);
         intent.putExtra("TAG","FromCourselib");
         intent.putExtra("plylistid",plylistid);
+        intent.putExtra("title",title);
+        intent.putExtra("Course_id",Course_id);
 
         startActivity(intent);
+
     }
 }

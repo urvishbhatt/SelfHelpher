@@ -56,21 +56,19 @@ public class CourselibAdpater extends RecyclerView.Adapter<CourselibAdpater.MyVi
 
         public TextView textView;
 
-
         public MyViewHolder(View itemView) {
             super(itemView);
             textView = (TextView)itemView.findViewById(R.id.course_lib_title);
 
             itemView.setOnClickListener(this);
-
         }
 
         @Override
         public void onClick(View v) {
 
             int clickedPostsion = getAdapterPosition();
-            mOnClickListener.onListItemClick(clickedPostsion);
 
+            mOnClickListener.onListItemClick(clickedPostsion);
         }
     }
 
