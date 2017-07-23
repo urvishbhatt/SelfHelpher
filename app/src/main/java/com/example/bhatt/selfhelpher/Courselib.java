@@ -27,7 +27,7 @@ import java.util.List;
 
 public class Courselib extends AppCompatActivity implements CourselibAdpater.ListItemClickListener {
 
-    private String title;
+    private String subject;
     private int subjectno;
 
     private ArrayList<String> Youtubelinks = new ArrayList<>();
@@ -47,12 +47,10 @@ public class Courselib extends AppCompatActivity implements CourselibAdpater.Lis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.courselib);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ActionBar actionBar = getSupportActionBar();
 
-        title = getIntent().getStringExtra("title");
+        subject = getIntent().getStringExtra("subject");
         subjectno = getIntent().getIntExtra("subjectno",5);
-        actionBar.setTitle(title);
+
 
         recyclerView = (RecyclerView)findViewById(R.id.course_lib_recycleview);
 
@@ -125,7 +123,7 @@ public class Courselib extends AppCompatActivity implements CourselibAdpater.Lis
 
                 String name = cursor.getString(a);
 
-                if (name.equals(title)){
+                if (name.equals(subject)){
 
                     String Youtubeplaylist = cursor.getString(b);
 
@@ -157,9 +155,9 @@ public class Courselib extends AppCompatActivity implements CourselibAdpater.Lis
         Toast.makeText(Courselib.this,String.valueOf(Course_id),Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(Courselib.this,CourseWindow.class);
-        intent.putExtra("TAG","FromCourselib");
+        intent.putExtra("INTENT_TAG","FromCourselib");
         intent.putExtra("plylistid",plylistid);
-        intent.putExtra("title",title);
+        intent.putExtra("subject",subject);
         intent.putExtra("Course_id",Course_id);
 
         startActivity(intent);

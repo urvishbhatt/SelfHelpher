@@ -22,12 +22,13 @@ public class CourseWindow extends AppCompatActivity {
 
     Videolistfragment fragment1;
 
-    private String plylistid,title;
+    private String plylistid,subject;
     private double Course_id;
 
     private Button buttn;
 
     private boolean DATA_IN_DATABASE = false;
+    private String INTENT_TAG;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,18 +39,27 @@ public class CourseWindow extends AppCompatActivity {
         buttn.setEnabled(true);
         buttn.setVisibility(View.VISIBLE);
 
-        plylistid = getIntent().getStringExtra("plylistid");
-        title = getIntent().getStringExtra("title");
-        Course_id = getIntent().getDoubleExtra("Course_id",0.0);
+        INTENT_TAG = getIntent().getStringExtra("INTENT_TAG");
+
+        if (INTENT_TAG.equals("MainWindow")){
+
+            plylistid = getIntent().getStringExtra("plylistid");
+
+            buttn.setEnabled(false);
+            buttn.setVisibility(View.GONE);
+
+        }else {
+
+            plylistid = getIntent().getStringExtra("plylistid");
+            subject = getIntent().getStringExtra("subject");
+            Course_id = getIntent().getDoubleExtra("Course_id",0.0);
+
+            checkindatabse();
+            IToast();
+        }
 
 
-        /*****************************************/
-        checkindatabse();
-        IToast();
-        /*****************************************/
-
-
-        final Intent intent = new Intent(CourseWindow.this,MainWindow.class);
+        final Intent intent = new Intent(CourseWindow.this,FirstWindows.class);
 
 
         buttn.setOnClickListener(new View.OnClickListener() {
@@ -61,7 +71,7 @@ public class CourseWindow extends AppCompatActivity {
 
                 ContentValues values = new ContentValues();
 
-                values.put(UserContract.UserEntry.SUBJECT,title);
+                values.put(UserContract.UserEntry.SUBJECT,subject);
                 values.put(UserContract.UserEntry.COURSEID,Course_id);
                 values.put(UserContract.UserEntry.PLAYLIST,plylistid);
 
@@ -138,7 +148,6 @@ public class CourseWindow extends AppCompatActivity {
                     }
                 }
             }
-
             finally {
 
                 if (cursor != null){
@@ -147,8 +156,6 @@ public class CourseWindow extends AppCompatActivity {
             }
 
         }
-
-
     }
 
 

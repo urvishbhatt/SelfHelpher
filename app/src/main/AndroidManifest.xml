@@ -11,42 +11,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SubSelect">
+        <activity android:name=".FirstWindows">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Courselib"
-            android:parentActivityName=".SubSelect" />
+        <activity android:name=".Courselib" />
         <activity android:name=".CourseWindow" />
-        <activity android:name=".MainWindow" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
-
-        </activity>
+        <activity android:name=".MainWindow"></activity>
 
         <provider
             android:name=".coursedatabase.CourseContentProvider"
             android:authorities="com.example.bhatt.selfhelpher"
             android:exported="false" />
-
         <provider
             android:name=".UserDatabase.UserContentProvider"
             android:authorities="com.example.bhatt.selfhelpher.UserDatabase"
             android:exported="false" />
 
-
-        <activity android:name=".YoutubeVideo"
-                  android:configChanges="orientation|keyboardHidden">
-
-        </activity>
+        <activity
+            android:name=".YoutubeVideo"
+            android:configChanges="orientation|keyboardHidden" />
+        <activity android:name=".Setting"></activity>
     </application>
 
 </manifest>

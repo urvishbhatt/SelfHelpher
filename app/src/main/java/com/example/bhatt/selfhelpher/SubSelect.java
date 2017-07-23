@@ -4,27 +4,33 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.preference.TwoStatePreference;
+import android.support.annotation.Nullable;
+import android.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bhatt.selfhelpher.coursedatabase.CourseContract;
 import com.example.bhatt.selfhelpher.dataprovider.dataprovider;
 
-public class SubSelect extends AppCompatActivity {
+public class SubSelect extends Fragment {
 
     private TextView healthtextView,wealthtextView,lovetextView,happinesstextView;
     private Intent intent;
 
+    private View fragment1;
 
+
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.sub_select);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+        fragment1 = inflater.inflate(R.layout.sub_select,container,false);
 
         String[] project = {
                 CourseContract.CourseEntry.SUBJECT,
@@ -32,7 +38,7 @@ public class SubSelect extends AppCompatActivity {
                 CourseContract.CourseEntry.PLAYLIST };
 
 
-        Cursor cursor = getContentResolver().query(
+        Cursor cursor = getActivity().getContentResolver().query(
                 CourseContract.CourseEntry.CONTENT_URL,
                 project,
                 null,
@@ -41,9 +47,11 @@ public class SubSelect extends AppCompatActivity {
         );
 
 
+
+
         int count = cursor.getCount();
 
-        Toast.makeText(this, String.valueOf(count),Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), String.valueOf(count),Toast.LENGTH_SHORT).show();
 
         if (count == 0){
 
@@ -58,19 +66,19 @@ public class SubSelect extends AppCompatActivity {
 
 
 
-        intent = new Intent(SubSelect.this,Courselib.class);
+        intent = new Intent(getActivity(),Courselib.class);
 
-        healthtextView = (TextView)findViewById(R.id.health_textview);
-        wealthtextView = (TextView)findViewById(R.id.wealth_textview);
-        lovetextView = (TextView)findViewById(R.id.love_textview);
-        happinesstextView = (TextView)findViewById(R.id.happiness_textview);
+        healthtextView = (TextView)fragment1.findViewById(R.id.health_textview);
+        wealthtextView = (TextView)fragment1.findViewById(R.id.wealth_textview);
+        lovetextView = (TextView)fragment1.findViewById(R.id.love_textview);
+        happinesstextView = (TextView)fragment1.findViewById(R.id.happiness_textview);
 
 
         healthtextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                intent.putExtra("title","health");
+                intent.putExtra("subject","health");
                 intent.putExtra("subjectno",1);
 
                 startActivity(intent);
@@ -81,7 +89,7 @@ public class SubSelect extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                intent.putExtra("title","wealth");
+                intent.putExtra("subject","wealth");
                 intent.putExtra("subjectno",2);
 
                 startActivity(intent);
@@ -92,7 +100,7 @@ public class SubSelect extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                intent.putExtra("title","love");
+                intent.putExtra("subject","love");
                 intent.putExtra("subjectno",3);
 
                 startActivity(intent);
@@ -103,7 +111,7 @@ public class SubSelect extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                intent.putExtra("title", "happiness");
+                intent.putExtra("subject", "happiness");
                 intent.putExtra("subjectno",4);
 
                 startActivity(intent);
@@ -111,7 +119,9 @@ public class SubSelect extends AppCompatActivity {
         });
 
 
+        return fragment1;
     }
+
 
     private void EnterDatabase() {
 
@@ -147,7 +157,7 @@ public class SubSelect extends AppCompatActivity {
                         Log.e("DATABASE",coursename[i]);
                         Log.e("DATABASE",helthplaylist[j]);
 
-                        getContentResolver().insert(CourseContract.CourseEntry.CONTENT_URL,values);
+                        getActivity().getContentResolver().insert(CourseContract.CourseEntry.CONTENT_URL,values);
 
                     }
                     break;
@@ -162,7 +172,7 @@ public class SubSelect extends AppCompatActivity {
                         Log.e("DATABASE",coursename[i]);
                         Log.e("DATABASE",wealthplalist[j]);
 
-                        getContentResolver().insert(CourseContract.CourseEntry.CONTENT_URL,values);
+                        getActivity().getContentResolver().insert(CourseContract.CourseEntry.CONTENT_URL,values);
 
                     }
                     break;
@@ -177,7 +187,7 @@ public class SubSelect extends AppCompatActivity {
                         Log.e("DATABASE",coursename[i]);
                         Log.e("DATABASE",loveplaylist[j]);
 
-                        getContentResolver().insert(CourseContract.CourseEntry.CONTENT_URL,values);
+                        getActivity().getContentResolver().insert(CourseContract.CourseEntry.CONTENT_URL,values);
 
                     }
                     break;
@@ -192,7 +202,7 @@ public class SubSelect extends AppCompatActivity {
                         Log.e("DATABASE",coursename[i]);
                         Log.e("DATABASE",happinessplaylist[j]);
 
-                        getContentResolver().insert(CourseContract.CourseEntry.CONTENT_URL,values);
+                        getActivity().getContentResolver().insert(CourseContract.CourseEntry.CONTENT_URL,values);
 
                     }
                     break;

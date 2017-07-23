@@ -81,6 +81,7 @@ public class Videolistfragment extends Fragment implements VideoListAdpater.Vide
         fragment1 = inflater.inflate(R.layout.videolistfragment,container,false);
 
         YoutubeVideoplaylist = getActivity().getIntent().getStringExtra("plylistid");
+
         nextPageToken = null;
 
         recyclerView = (RecyclerView)fragment1.findViewById(R.id.videoList_recycleview);
