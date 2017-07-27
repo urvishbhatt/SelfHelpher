@@ -51,8 +51,7 @@ public class NewAppWidgetConfigureActivity extends Activity {
         CourseCounter();
         UserCounter();
 
-        Toast.makeText(this,String.valueOf(course_total),Toast.LENGTH_SHORT).show();
-        Toast.makeText(this,String.valueOf(user_total),Toast.LENGTH_SHORT).show();
+
 
 
         // Find the widget id from the intent.

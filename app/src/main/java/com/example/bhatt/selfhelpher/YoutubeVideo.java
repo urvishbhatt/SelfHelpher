@@ -42,9 +42,6 @@ public class YoutubeVideo extends YouTubeBaseActivity implements YouTubePlayer.O
         Youtubedes = bundle.getString("Youtubedes");
 
 
-        Log.e("LOLO",Youtubetitle);
-        Log.e("LOLO",Youtubelink);
-
         titleview.setText(Youtubetitle);
         desview.setText(Youtubedes);
 

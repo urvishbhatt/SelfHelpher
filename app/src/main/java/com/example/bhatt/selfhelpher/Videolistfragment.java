@@ -132,8 +132,6 @@ public class Videolistfragment extends Fragment implements VideoListAdpater.Vide
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(adapter);
-
-        Toast.makeText(getActivity(),itams.get(0).getSnippet().getTitle(),Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -150,7 +148,7 @@ public class Videolistfragment extends Fragment implements VideoListAdpater.Vide
 
         String link = item.getId().toString();
 
-        Toast.makeText(getActivity(),link,Toast.LENGTH_SHORT).show();
+
 
         if (CourseWindow.issecondfragment){
 

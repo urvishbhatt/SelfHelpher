@@ -169,10 +169,6 @@ public class Courselib extends AppCompatActivity implements CourselibAdpater.Lis
                 if (name.equals(subject)){
 
                     String Youtubeplaylist = cursor.getString(b);
-
-                    Log.e("Courselib",name);
-                    Log.e("Courselib",Youtubeplaylist);
-
                     Youtubelinks.add(Youtubeplaylist);
 
                 }

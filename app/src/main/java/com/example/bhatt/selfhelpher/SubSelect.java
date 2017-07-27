@@ -177,9 +177,6 @@ public class SubSelect extends Fragment {
                         values.put(CourseContract.CourseEntry.COURSEID,helthcourseid[j]);
                         values.put(CourseContract.CourseEntry.PLAYLIST,helthplaylist[j]);
 
-                        Log.e("DATABASE",coursename[i]);
-                        Log.e("DATABASE",helthplaylist[j]);
-
                         getActivity().getContentResolver().insert(CourseContract.CourseEntry.CONTENT_URL,values);
 
                     }
@@ -191,9 +188,6 @@ public class SubSelect extends Fragment {
                         values.put(CourseContract.CourseEntry.SUBJECT,coursename[i]);
                         values.put(CourseContract.CourseEntry.COURSEID,wealthcourseid[j]);
                         values.put(CourseContract.CourseEntry.PLAYLIST,wealthplalist[j]);
-
-                        Log.e("DATABASE",coursename[i]);
-                        Log.e("DATABASE",wealthplalist[j]);
 
                         getActivity().getContentResolver().insert(CourseContract.CourseEntry.CONTENT_URL,values);
 
@@ -207,9 +201,6 @@ public class SubSelect extends Fragment {
                         values.put(CourseContract.CourseEntry.COURSEID,lovecourseid[j]);
                         values.put(CourseContract.CourseEntry.PLAYLIST,loveplaylist[j]);
 
-                        Log.e("DATABASE",coursename[i]);
-                        Log.e("DATABASE",loveplaylist[j]);
-
                         getActivity().getContentResolver().insert(CourseContract.CourseEntry.CONTENT_URL,values);
 
                     }
@@ -221,9 +212,6 @@ public class SubSelect extends Fragment {
                         values.put(CourseContract.CourseEntry.SUBJECT,coursename[i]);
                         values.put(CourseContract.CourseEntry.COURSEID,happinesscourseid[j]);
                         values.put(CourseContract.CourseEntry.PLAYLIST,happinessplaylist[j]);
-
-                        Log.e("DATABASE",coursename[i]);
-                        Log.e("DATABASE",happinessplaylist[j]);
 
                         getActivity().getContentResolver().insert(CourseContract.CourseEntry.CONTENT_URL,values);
 
