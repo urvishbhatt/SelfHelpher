@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="Text_margin_top">80dp</dimen>
+
+    <dimen name="Hedding_text">32sp</dimen>
+    <dimen name="Hedding_text2">18sp</dimen>
+
+    <dimen name="subject_width">90dp</dimen>
+    <dimen name="subject_hight">70dp</dimen>
+
+    <!--
+Refer to App Widget Documentation for margin information
+http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
+    -->
+    <dimen name="widget_margin">8dp</dimen>
+
 </resources>

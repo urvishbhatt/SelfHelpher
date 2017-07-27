@@ -8,7 +8,16 @@ public class CourselibData {
 
     private String coursename;
 
-    CourselibData(String coursename){ this.coursename = coursename; }
+    private int colorcode;
+
+    public CourselibData(String coursename, int randomAndroidColor) {
+
+        this.coursename = coursename;
+        this.colorcode = randomAndroidColor;
+    }
 
     public String getcoursename(){ return coursename; }
+
+    public int getcolor(){ return colorcode; }
+
 }

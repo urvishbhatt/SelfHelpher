@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.bhatt.selfhelpher.FirstWindows">
+    tools:context="com.example.bhatt.selfhelpher.FirstWindows"
+    android:background="@drawable/subselect">
 
     <FrameLayout
         android:id="@+id/sub_select_fragment1"

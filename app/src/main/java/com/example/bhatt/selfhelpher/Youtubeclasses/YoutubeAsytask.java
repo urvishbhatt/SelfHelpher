@@ -45,11 +45,11 @@ public abstract class YoutubeAsytask extends AsyncTask<Object, Object, VideoList
     private static final String YOUTUBE_VIDEOS_FIELDS = "items(id,snippet(title,description,thumbnails/high),contentDetails/duration,statistics)"; // selector specifying which fields to include in a partial response.
 
 
-
     public YoutubeAsytask(String youtubeVideoplaylist, String nextPageToken) {
 
         this.YoutubeVideoplaylist = youtubeVideoplaylist;
         this.nextPageToken = nextPageToken;
+
     }
 
     @Override

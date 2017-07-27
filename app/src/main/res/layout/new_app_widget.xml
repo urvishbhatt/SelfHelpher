@@ -1,0 +1,70 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/subselect"
+    android:padding="@dimen/widget_margin">
+
+    <TextView
+        android:id="@+id/widget_enrollment_hedding"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/enrollment"
+        android:textSize="32sp"
+        android:textStyle="italic|bold" />
+
+    <TextView
+        android:id="@+id/widget_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="8/10"
+        android:layout_below="@+id/widget_enrollment_hedding"
+        android:textSize="22sp"
+        android:textStyle="italic|bold" />
+
+    <TextView
+        android:id="@+id/health_widget"
+        android:text="health :- 8/10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="23dp"
+        android:layout_below="@+id/widget_total"
+        android:layout_alignStart="@+id/widget_enrollment_hedding"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/wealth_widget"
+        android:text="wealth :- 8/10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/health_widget"
+        android:layout_alignStart="@+id/health_widget"
+        android:layout_marginTop="22dp"
+        android:textStyle="bold"/>
+
+
+    <TextView
+        android:id="@+id/love_widget"
+        android:text="love :- 8/10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/wealth_widget"
+        android:layout_alignBottom="@+id/wealth_widget"
+        android:layout_alignEnd="@+id/widget_enrollment_hedding"
+        android:textStyle="bold"/>
+
+
+    <TextView
+        android:id="@+id/happiness_widget"
+        android:text="happiness :- 8/10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/health_widget"
+        android:layout_alignBottom="@+id/health_widget"
+        android:layout_alignStart="@+id/love_widget"
+        android:textStyle="bold"/>
+
+
+
+</RelativeLayout>

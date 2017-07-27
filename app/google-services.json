@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "255232445797",
+    "firebase_url": "https://self-help-udacity.firebaseio.com",
+    "project_id": "self-help-udacity",
+    "storage_bucket": "self-help-udacity.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:255232445797:android:a59fffcdaf053e0d",
+        "android_client_info": {
+          "package_name": "com.example.bhatt.selfhelpher"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "255232445797-min5r0b5c5disr46tkkjoos5jn8r2lfd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8DmT2GudC-UF8g1Cvy5sglHYyN7guT9g"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

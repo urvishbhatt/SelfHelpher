@@ -9,7 +9,13 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#94E1C0">
+        >
+
+        <ImageView
+            android:id="@+id/video_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
 
         <TextView
             android:id="@+id/video_number"
@@ -17,7 +23,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:textStyle="bold"
-            android:text="1"
             android:textSize="22sp"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="5dp" />
@@ -26,7 +31,6 @@
             android:id="@+id/video_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Think and Grow rich"
             android:layout_centerInParent="true"
             android:textSize="16sp"
             android:textColor="@android:color/black"
@@ -42,7 +46,6 @@
             android:layout_alignParentRight="true"
             android:layout_marginBottom="5dp"
             android:layout_marginRight="5dp"
-            android:text="10.55"
             android:textSize="14sp"/>
 
     </RelativeLayout>

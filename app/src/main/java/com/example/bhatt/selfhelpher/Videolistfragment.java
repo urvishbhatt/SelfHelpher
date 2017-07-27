@@ -1,5 +1,7 @@
 package com.example.bhatt.selfhelpher;
 
+
+import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -7,8 +9,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
-import android.app.Fragment;
-import android.app.FragmentManager;
+
+
+
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -52,6 +55,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by bhatt on 18-07-2017.
@@ -89,6 +93,9 @@ public class Videolistfragment extends Fragment implements VideoListAdpater.Vide
 
         if (savedInstanceState == null){
 
+            int[] androidColors = getResources().getIntArray(R.array.androidcolor);
+            int randomAndroidColor = androidColors[new Random().nextInt(androidColors.length)];
+
             YoutubeAsytask youtubeAsytask = new YoutubeAsytask(YoutubeVideoplaylist,nextPageToken) {
 
                 @Override
@@ -118,7 +125,10 @@ public class Videolistfragment extends Fragment implements VideoListAdpater.Vide
 
         List<Video> itams = videoListResponse.getItems();
 
-        VideoListAdpater adapter = new VideoListAdpater(itams,this);
+        int[] androidColors = getResources().getIntArray(R.array.androidcolor);
+        int randomAndroidColor = androidColors[new Random().nextInt(androidColors.length)];
+
+        VideoListAdpater adapter = new VideoListAdpater(itams,this,randomAndroidColor,getContext());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(adapter);
@@ -135,22 +145,46 @@ public class Videolistfragment extends Fragment implements VideoListAdpater.Vide
     @Override
     public void onListItemClick(int clickedItemIndex) {
 
+
         Video item = videoListResponse.getItems().get(clickedItemIndex);
 
         String link = item.getId().toString();
 
         Toast.makeText(getActivity(),link,Toast.LENGTH_SHORT).show();
 
-        Bundle bundle = new Bundle();
+        if (CourseWindow.issecondfragment){
 
-        bundle.putString("Youtubelink",link);
-        bundle.putString("Youtubetitle",item.getSnippet().getTitle());
-        bundle.putString("Youtubedes",item.getSnippet().getDescription());
+            //////youtube details fragment////////////////////////////////////////
+            YoutubeFragmentDetails fragment2 = new YoutubeFragmentDetails();
+            Bundle bundle = new Bundle();
+            bundle.putString("Youtubetitle",item.getSnippet().getTitle());
+            bundle.putString("Youtubedes",item.getSnippet().getDescription());
+            fragment2.setArguments(bundle);
+            getFragmentManager().beginTransaction().add(R.id.fragment2,fragment2).commit();
 
-        intent = new Intent(getActivity(),YoutubeVideo.class);
-        intent.putExtra("bundle",bundle);
+            //////youtube player fragment///////////////////////////////////////////
+            YoutubeFragmentVideo fragment3 = new YoutubeFragmentVideo();
+            Bundle bundle1 = new Bundle();
+            bundle1.putString("Youtubelink",link);
+            fragment3.setArguments(bundle1);
+            getFragmentManager().beginTransaction().add(R.id.fragment3,fragment3).commit();
 
-        startActivity(intent);
+
+        }else {
+
+            ////start youtube player activity////////////////////////////////////////
+            Bundle bundle = new Bundle();
+            bundle.putString("Youtubelink",link);
+            bundle.putString("Youtubetitle",item.getSnippet().getTitle());
+            bundle.putString("Youtubedes",item.getSnippet().getDescription());
+            intent = new Intent(getActivity(),YoutubeVideo.class);
+            intent.putExtra("bundle",bundle);
+            startActivity(intent);
+
+        }
+
+
+
 
     }
 }

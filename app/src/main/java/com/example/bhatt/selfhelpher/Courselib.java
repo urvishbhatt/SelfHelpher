@@ -9,6 +9,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.Pair;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.LayoutAnimationController;
+import android.view.animation.TranslateAnimation;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
@@ -24,6 +29,7 @@ import com.google.api.services.youtube.model.Video;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Courselib extends AppCompatActivity implements CourselibAdpater.ListItemClickListener {
 
@@ -48,8 +54,13 @@ public class Courselib extends AppCompatActivity implements CourselibAdpater.Lis
         setContentView(R.layout.courselib);
 
 
+
+
         subject = getIntent().getStringExtra("subject");
         subjectno = getIntent().getIntExtra("subjectno",5);
+
+        getSupportActionBar().setTitle(subject);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         recyclerView = (RecyclerView)findViewById(R.id.course_lib_recycleview);
@@ -58,6 +69,17 @@ public class Courselib extends AppCompatActivity implements CourselibAdpater.Lis
         youtubework();
 
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        Intent intent = new Intent(Courselib.this,FirstWindows.class);
+        intent.putExtra("INTENT_TAG","fromsetting");
+        startActivity(intent);
+
+    }
+
 
     private void youtubework() {
 
@@ -71,13 +93,18 @@ public class Courselib extends AppCompatActivity implements CourselibAdpater.Lis
             @Override
             protected void onPostExecute(PlaylistListResponse playlistListResponse) {
 
+                int[] androidColors = getResources().getIntArray(R.array.androidcolor);
+
+
                 if (playlistListResponse == null) {
                     return;
                 }else {
                     mPlaylistTitles = new ArrayList();
                     for (com.google.api.services.youtube.model.Playlist playlist : playlistListResponse.getItems()) {
 
-                        mPlaylistTitles.add(new CourselibData(playlist.getSnippet().getTitle()));
+                        int randomAndroidColor = androidColors[new Random().nextInt(androidColors.length)];
+
+                        mPlaylistTitles.add(new CourselibData(playlist.getSnippet().getTitle(),randomAndroidColor));
 
                     }
                 }
@@ -94,8 +121,11 @@ public class Courselib extends AppCompatActivity implements CourselibAdpater.Lis
         CourselibAdpater adpater = new CourselibAdpater(Courselib.this,mPlaylistTitles,Courselib.this);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(adpater);
+
+
     }
 
     private void databasework() {

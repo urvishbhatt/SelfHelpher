@@ -11,10 +11,21 @@
 
 
     <string name="enroll">Enroll</string>
+    <string name="cancel_enrollment">cancel Enrollment</string>
+
+    <string name="add_course">add course</string>
+
+    <string name="sign_out">sign out</string>
 
     <string name="delete">delete</string>
 
     <string name="setting">setting</string>
 
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="widget_button">Show Me Report Card</string>
+    <string name="configure">Configure</string>
+
+    <string name="enrollment">ENROLLMENT</string>
 
 </resources>

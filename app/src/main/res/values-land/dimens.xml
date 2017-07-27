@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="Text_margin_top">10dp</dimen>
+
+    <dimen name="Hedding_text">32sp</dimen>
+    <dimen name="Hedding_text2">18sp</dimen>
+
+    <dimen name="subject_width">110sp</dimen>
+    <dimen name="subject_hight">90sp</dimen>
+
+</resources>

@@ -1,20 +1,27 @@
 package com.example.bhatt.selfhelpher;
 
+import android.app.FragmentTransaction;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
+import android.net.Uri;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.Toast;
 
+import android.support.v4.app.Fragment;
+
 import com.example.bhatt.selfhelpher.UserDatabase.UserContract;
+import com.example.bhatt.selfhelpher.UserDatabase.UserDataUtil;
 import com.example.bhatt.selfhelpher.UserDatabase.Useropenhelper;
 import com.example.bhatt.selfhelpher.coursedatabase.CourseContract;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 public class CourseWindow extends AppCompatActivity {
 
@@ -30,6 +37,19 @@ public class CourseWindow extends AppCompatActivity {
     private boolean DATA_IN_DATABASE = false;
     private String INTENT_TAG;
 
+    private FirebaseAnalytics mFirebaseAnalytics;
+
+    static boolean issecondfragment = false;
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        Intent intent = new Intent(CourseWindow.this,FirstWindows.class);
+        startActivity(intent);
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,12 +61,23 @@ public class CourseWindow extends AppCompatActivity {
 
         INTENT_TAG = getIntent().getStringExtra("INTENT_TAG");
 
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
+        if (findViewById(R.id.fragment2)!=null){
+
+            issecondfragment = true;
+        }
+
         if (INTENT_TAG.equals("MainWindow")){
 
             plylistid = getIntent().getStringExtra("plylistid");
 
-            buttn.setEnabled(false);
-            buttn.setVisibility(View.GONE);
+            buttn.setText(getResources().getText(R.string.cancel_enrollment));
+
+            buttn.setEnabled(true);
+            buttn.setVisibility(View.VISIBLE);
+
+
 
         }else {
 
@@ -66,31 +97,58 @@ public class CourseWindow extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                Animation animation = AnimationUtils.loadAnimation(CourseWindow.this,R.anim.blink);
+                buttn.startAnimation(animation);
 
-                Toast.makeText(CourseWindow.this,"Buttonclick",Toast.LENGTH_SHORT).show();
+                if ((buttn.getText().equals(getResources().getString(R.string.enroll)))){
 
-                ContentValues values = new ContentValues();
 
-                values.put(UserContract.UserEntry.SUBJECT,subject);
-                values.put(UserContract.UserEntry.COURSEID,Course_id);
-                values.put(UserContract.UserEntry.PLAYLIST,plylistid);
+                    Toast.makeText(CourseWindow.this,"Buttonclick",Toast.LENGTH_SHORT).show();
 
-                getContentResolver().insert(UserContract.UserEntry.CONTENT_URL,values);
+                    ContentValues values = new ContentValues();
 
-                Toast.makeText(CourseWindow.this,"Enter into database",Toast.LENGTH_SHORT).show();
+                    values.put(UserContract.UserEntry.SUBJECT,subject);
+                    values.put(UserContract.UserEntry.COURSEID,Course_id);
+                    values.put(UserContract.UserEntry.PLAYLIST,plylistid);
 
-                startActivity(intent);
+                    getContentResolver().insert(UserContract.UserEntry.CONTENT_URL,values);
 
+                    Toast.makeText(CourseWindow.this,"Enter into database",Toast.LENGTH_SHORT).show();
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString(FirebaseAnalytics.Param.ITEM_ID,"Enrollments");
+                    bundle.putString(FirebaseAnalytics.Param.ITEM_NAME,subject);
+                    bundle.putDouble(FirebaseAnalytics.Param.INDEX,Course_id);
+                    bundle.putString(FirebaseAnalytics.Param.CONTENT,plylistid);
+                    mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT,bundle);
+
+                    startActivity(intent);
+
+                }else {
+
+                    Toast.makeText(CourseWindow.this,"Enenrollment",Toast.LENGTH_SHORT).show();
+
+                    String DELETEQUERY = UserContract.UserEntry.COURSEID +"=?";
+
+                    new UserDataUtil(plylistid);
+
+                    String[] selectionArgs = { plylistid };
+
+                    int i = getContentResolver().delete(UserContract.UserEntry.CONTENT_URL,DELETEQUERY,selectionArgs);
+                    Toast.makeText(CourseWindow.this,"total row delete = "+String.valueOf(i),Toast.LENGTH_SHORT).show();
+
+                    buttn.setText(getResources().getText(R.string.enroll));
+                }
             }
         });
 
 
-        /**************************************************/
 
+
+        /**************************************************/
 
         fragment1 = new Videolistfragment();
         getFragmentManager().beginTransaction().add(R.id.fragment1,fragment1).commit();
-
 
         /*****************************************************/
 
@@ -142,7 +200,6 @@ public class CourseWindow extends AppCompatActivity {
                         DATA_IN_DATABASE = true;
                         buttn.setEnabled(false);
                         buttn.setVisibility(View.GONE);
-
 
                         break;
                     }

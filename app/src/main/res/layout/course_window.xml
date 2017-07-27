@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/subselect"
     tools:context="com.example.bhatt.selfhelpher.CourseWindow">
 
     <FrameLayout
@@ -18,7 +19,7 @@
         android:layout_height="wrap_content"
         android:text="@string/enroll"
         android:layout_alignParentBottom="true"
-        android:background="@android:color/holo_orange_dark"
+        android:background="?colorAccent"
         android:layout_margin="5dp"/>
 
 </RelativeLayout>

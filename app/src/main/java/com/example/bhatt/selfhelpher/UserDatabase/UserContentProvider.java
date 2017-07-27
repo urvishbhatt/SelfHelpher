@@ -11,7 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-
+import com.example.bhatt.selfhelpher.coursedatabase.CourseContract;
 
 
 /**
@@ -33,6 +33,8 @@ public class UserContentProvider extends ContentProvider {
     public static final String LOG_TAG = UserContentProvider.class.getSimpleName();
 
     private Useropenhelper useropenhelper;
+
+    public String[] DELETEQUERY = {UserContract.UserEntry.COURSEID + " = " };
 
     @Override
     public boolean onCreate() {
@@ -107,7 +109,48 @@ public class UserContentProvider extends ContentProvider {
 
     @Override
     public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
-        return 0;
+
+        SQLiteDatabase database = useropenhelper.getWritableDatabase();
+
+//        String[] FINAL_DELETE_QUERY = DELETEQUERY+selectionArgs;
+
+        selection = UserContract.UserEntry.COURSEID + "=?";
+//        selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
+
+        selection = UserContract.UserEntry.PLAYLIST + "=?";
+//                selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
+        selectionArgs = new String[] { UserDataUtil.getYoutubeplaylist() };
+
+        Log.e("selection",selection);
+        Log.e("selectionArgs",selectionArgs[0]);
+
+        final int match = sUriMatcher.match(uri);
+
+        switch (match) {
+            case USER:
+                // Delete all rows that match the selection and selection args
+
+                Log.e("selection",selection);
+                Log.e("selectionArgs",selectionArgs[0]);
+
+
+                return database.delete(UserContract.UserEntry.TABLE_NAME, selection, selectionArgs);
+            case USER_ID:
+                // Delete a single row given by the ID in the URI
+                selection = UserContract.UserEntry.PLAYLIST + "=?";
+//                selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
+                selectionArgs = new String[] { UserDataUtil.getYoutubeplaylist() };
+
+                Log.e("selection",selection);
+                Log.e("selectionArgs",selectionArgs[0]);
+
+                return database.delete(UserContract.UserEntry.TABLE_NAME, selection, selectionArgs);
+            default:
+                throw new IllegalArgumentException("Deletion is not supported for " + uri);
+        }
+
+//        return 0;
+
     }
 
     @Override

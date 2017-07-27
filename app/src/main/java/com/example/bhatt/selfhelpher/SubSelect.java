@@ -3,6 +3,7 @@ package com.example.bhatt.selfhelpher;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Build;
 import android.preference.TwoStatePreference;
 import android.support.annotation.Nullable;
 import android.app.Fragment;
@@ -12,6 +13,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,12 +28,19 @@ public class SubSelect extends Fragment {
 
     private View fragment1;
 
+    Animation animation;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         fragment1 = inflater.inflate(R.layout.sub_select,container,false);
+
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            animation = AnimationUtils.loadAnimation(getContext(),R.anim.slide_up);
+        }
+
 
         String[] project = {
                 CourseContract.CourseEntry.SUBJECT,
@@ -63,9 +73,6 @@ public class SubSelect extends Fragment {
             cursor.close();
         }
 
-
-
-
         intent = new Intent(getActivity(),Courselib.class);
 
         healthtextView = (TextView)fragment1.findViewById(R.id.health_textview);
@@ -81,6 +88,10 @@ public class SubSelect extends Fragment {
                 intent.putExtra("subject","health");
                 intent.putExtra("subjectno",1);
 
+                healthtextView.startAnimation(animation);
+                lovetextView.setAnimation(animation);
+                wealthtextView.startAnimation(animation);
+                happinesstextView.setAnimation(animation);
                 startActivity(intent);
             }
         });
@@ -92,6 +103,10 @@ public class SubSelect extends Fragment {
                 intent.putExtra("subject","wealth");
                 intent.putExtra("subjectno",2);
 
+                healthtextView.startAnimation(animation);
+                lovetextView.setAnimation(animation);
+                wealthtextView.startAnimation(animation);
+                happinesstextView.setAnimation(animation);
                 startActivity(intent);
             }
         });
@@ -103,6 +118,10 @@ public class SubSelect extends Fragment {
                 intent.putExtra("subject","love");
                 intent.putExtra("subjectno",3);
 
+                healthtextView.startAnimation(animation);
+                lovetextView.setAnimation(animation);
+                wealthtextView.startAnimation(animation);
+                happinesstextView.setAnimation(animation);
                 startActivity(intent);
             }
         });
@@ -114,6 +133,10 @@ public class SubSelect extends Fragment {
                 intent.putExtra("subject", "happiness");
                 intent.putExtra("subjectno",4);
 
+                healthtextView.startAnimation(animation);
+                lovetextView.setAnimation(animation);
+                wealthtextView.startAnimation(animation);
+                happinesstextView.setAnimation(animation);
                 startActivity(intent);
             }
         });
@@ -121,6 +144,8 @@ public class SubSelect extends Fragment {
 
         return fragment1;
     }
+
+
 
 
     private void EnterDatabase() {

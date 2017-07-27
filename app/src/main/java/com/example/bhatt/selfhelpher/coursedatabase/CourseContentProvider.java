@@ -12,6 +12,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+
+
 /**
  * Created by bhatt on 20-07-2017.
  */
@@ -32,6 +34,7 @@ public class CourseContentProvider extends ContentProvider {
     public static final String LOG_TAG  = CourseContentProvider.class.getSimpleName();
 
     private Courseopenhelper courseopenhelper;
+
 
 
     @Override
@@ -106,6 +109,7 @@ public class CourseContentProvider extends ContentProvider {
 
     @Override
     public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
+
         return 0;
     }
 

@@ -1,9 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.bhatt.selfhelpher.Setting">
+    tools:context="com.example.bhatt.selfhelpher.Setting"
+    android:padding="5dp"
+    android:background="@drawable/subselect">
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/add_course"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_course"
+        android:textSize="25sp"
+        android:padding="10dp"
+        android:background="@drawable/textborder"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/black"
+        android:layout_below="@+id/add_course"/>
+
+</RelativeLayout>

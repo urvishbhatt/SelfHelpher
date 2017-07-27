@@ -2,13 +2,17 @@ package com.example.bhatt.selfhelpher;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by bhatt on 21-07-2017.
@@ -19,7 +23,11 @@ public class CourselibAdpater extends RecyclerView.Adapter<CourselibAdpater.MyVi
     ArrayList<CourselibData> mPlaylistTitles = new ArrayList<>();
     Context context;
 
-    CourselibAdpater(Context context, ArrayList<CourselibData> arrayList,ListItemClickListener listener){
+    private SparseBooleanArray selectedItems;
+
+    int lastPosition = -1;
+
+    public CourselibAdpater(Context context, ArrayList<CourselibData> arrayList, ListItemClickListener listener){
         this.context = context;
         this.mPlaylistTitles = arrayList;
         mOnClickListener = listener;
@@ -41,7 +49,15 @@ public class CourselibAdpater extends RecyclerView.Adapter<CourselibAdpater.MyVi
         CourselibData courselibData = mPlaylistTitles.get(position);
 
         holder.textView.setText(courselibData.getcoursename());
+        holder.imageView.setBackgroundColor(courselibData.getcolor());
 
+        if(position >lastPosition) {
+
+            Animation animation = AnimationUtils.loadAnimation(context,
+                    R.anim.up_from_bottom);
+            holder.itemView.startAnimation(animation);
+            lastPosition = position;
+        }
 
     }
 
@@ -55,10 +71,13 @@ public class CourselibAdpater extends RecyclerView.Adapter<CourselibAdpater.MyVi
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView textView;
+        public ImageView imageView;
+
 
         public MyViewHolder(View itemView) {
             super(itemView);
             textView = (TextView)itemView.findViewById(R.id.course_lib_title);
+            imageView = (ImageView)itemView.findViewById(R.id.course_lib_image);
 
             itemView.setOnClickListener(this);
         }
@@ -74,5 +93,5 @@ public class CourselibAdpater extends RecyclerView.Adapter<CourselibAdpater.MyVi
 
     final private ListItemClickListener mOnClickListener;
 
-    interface ListItemClickListener { void onListItemClick(int clickedItemIndex); }
+    public interface ListItemClickListener { void onListItemClick(int clickedItemIndex); }
 }

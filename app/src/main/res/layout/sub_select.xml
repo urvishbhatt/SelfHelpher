@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.bhatt.selfhelpher.SubSelect">
@@ -16,7 +17,7 @@
         android:text="@string/subselect_main_text"
         android:layout_marginTop="@dimen/Text_margin_top"
         android:layout_centerHorizontal="true"
-        android:textSize="32sp"/>
+        android:textSize="@dimen/Hedding_text"/>
 
     <TextView
         android:id="@+id/sub_select_maintext2"
@@ -42,16 +43,16 @@
 
             <TextView
                 android:id="@+id/health_textview"
-                android:layout_width="90dp"
-                android:layout_height="70dp"
+                android:layout_width="@dimen/subject_width"
+                android:layout_height="@dimen/subject_hight"
                 android:gravity="center"
                 android:text="@string/health"
                 />
 
             <TextView
                 android:id="@+id/wealth_textview"
-                android:layout_width="90dp"
-                android:layout_height="70dp"
+                android:layout_width="@dimen/subject_width"
+                android:layout_height="@dimen/subject_hight"
                 android:text="@string/wealth"
                 android:gravity="center"/>
 
@@ -65,15 +66,15 @@
 
             <TextView
                 android:id="@+id/love_textview"
-                android:layout_width="90dp"
-                android:layout_height="70dp"
+                android:layout_width="@dimen/subject_width"
+                android:layout_height="@dimen/subject_hight"
                 android:text="@string/love"
                 android:gravity="center"/>
 
             <TextView
                 android:id="@+id/happiness_textview"
-                android:layout_width="90dp"
-                android:layout_height="70dp"
+                android:layout_width="@dimen/subject_width"
+                android:layout_height="@dimen/subject_hight"
                 android:text="@string/happiness"
                 android:gravity="center"/>
 
@@ -88,7 +89,7 @@
         android:layout_width="1dp"
         android:layout_height="140dp"
         android:layout_centerInParent="true"
-        android:background="#DDDD00"
+        android:background="@color/borderColor"
         ></LinearLayout>
 
 
@@ -96,6 +97,6 @@
         android:layout_width="180dp"
         android:layout_height="1dp"
         android:layout_centerInParent="true"
-        android:background="#DDDD00"></LinearLayout>
+        android:background="@color/borderColor"></LinearLayout>
 
 </RelativeLayout>
