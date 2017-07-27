@@ -1,14 +1,20 @@
 package com.example.bhatt.selfhelpher;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.Pair;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
@@ -53,8 +59,8 @@ public class Courselib extends AppCompatActivity implements CourselibAdpater.Lis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.courselib);
 
-
-
+        Toolbar toolbar = (Toolbar) findViewById(R.id.course_lib_appbar);
+        setSupportActionBar(toolbar);
 
         subject = getIntent().getStringExtra("subject");
         subjectno = getIntent().getIntExtra("subjectno",5);
@@ -62,22 +68,29 @@ public class Courselib extends AppCompatActivity implements CourselibAdpater.Lis
         getSupportActionBar().setTitle(subject);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
         recyclerView = (RecyclerView)findViewById(R.id.course_lib_recycleview);
 
-        databasework();
-        youtubework();
+
+        if (isNetworkStatusAvialable(getApplicationContext())){
+            databasework();
+            youtubework();
+
+        }else {
+            Toast.makeText(Courselib.this,getResources().getString(R.string.nointenet_message),Toast.LENGTH_LONG).show();
+        }
 
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-
-        Intent intent = new Intent(Courselib.this,FirstWindows.class);
-        intent.putExtra("INTENT_TAG","fromsetting");
-        startActivity(intent);
-
+    public static boolean isNetworkStatusAvialable (Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager != null)
+        {
+            NetworkInfo netInfos = connectivityManager.getActiveNetworkInfo();
+            if(netInfos != null)
+                if(netInfos.isConnected())
+                    return true;
+        }
+        return false;
     }
 
 
@@ -109,7 +122,7 @@ public class Courselib extends AppCompatActivity implements CourselibAdpater.Lis
                     }
                 }
 
-                Toast.makeText(Courselib.this,"Toast",Toast.LENGTH_SHORT).show();
+
 
                 updateUI();
             }
@@ -182,7 +195,7 @@ public class Courselib extends AppCompatActivity implements CourselibAdpater.Lis
 
         Course_id = Course_id + decimal2;
 
-        Toast.makeText(Courselib.this,String.valueOf(Course_id),Toast.LENGTH_SHORT).show();
+
 
         Intent intent = new Intent(Courselib.this,CourseWindow.class);
         intent.putExtra("INTENT_TAG","FromCourselib");
@@ -192,5 +205,10 @@ public class Courselib extends AppCompatActivity implements CourselibAdpater.Lis
 
         startActivity(intent);
 
+    }
+
+    @Override
+    public boolean onMenuOpened(int featureId, Menu menu) {
+        return false;
     }
 }

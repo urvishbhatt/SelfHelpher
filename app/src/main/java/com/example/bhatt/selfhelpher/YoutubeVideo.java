@@ -3,6 +3,7 @@ package com.example.bhatt.selfhelpher;
 import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,12 +26,11 @@ public class YoutubeVideo extends YouTubeBaseActivity implements YouTubePlayer.O
 
     final String TAG = "YoutubeVideo";
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.youtube_video);
+
 
         titleview = (TextView)findViewById(R.id.video_Title);
         desview = (TextView)findViewById(R.id.video_Des);

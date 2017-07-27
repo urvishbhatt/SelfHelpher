@@ -15,6 +15,7 @@
         android:gravity="center_horizontal"
         android:foregroundGravity="center_horizontal"
         android:text="@string/subselect_main_text"
+        android:contentDescription="@string/subselect_main_text"
         android:layout_marginTop="@dimen/Text_margin_top"
         android:layout_centerHorizontal="true"
         android:textSize="@dimen/Hedding_text"/>
@@ -27,6 +28,7 @@
         android:layout_below="@+id/sub_select_maintext"
         android:layout_marginTop="5dp"
         android:text="@string/subselect_main_text2"
+        android:contentDescription="@string/subselect_main_text2"
         android:textSize="18dp"/>
 
 
@@ -47,6 +49,7 @@
                 android:layout_height="@dimen/subject_hight"
                 android:gravity="center"
                 android:text="@string/health"
+                android:contentDescription="@string/health"
                 />
 
             <TextView
@@ -54,6 +57,7 @@
                 android:layout_width="@dimen/subject_width"
                 android:layout_height="@dimen/subject_hight"
                 android:text="@string/wealth"
+                android:contentDescription="@string/wealth"
                 android:gravity="center"/>
 
 
@@ -69,6 +73,7 @@
                 android:layout_width="@dimen/subject_width"
                 android:layout_height="@dimen/subject_hight"
                 android:text="@string/love"
+                android:contentDescription="string/love"
                 android:gravity="center"/>
 
             <TextView
@@ -76,6 +81,7 @@
                 android:layout_width="@dimen/subject_width"
                 android:layout_height="@dimen/subject_hight"
                 android:text="@string/happiness"
+                android:contentDescription="@string/happiness"
                 android:gravity="center"/>
 
         </LinearLayout>

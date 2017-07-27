@@ -61,8 +61,6 @@ public class SubSelect extends Fragment {
 
         int count = cursor.getCount();
 
-        Toast.makeText(getActivity(), String.valueOf(count),Toast.LENGTH_SHORT).show();
-
         if (count == 0){
 
             cursor.close();

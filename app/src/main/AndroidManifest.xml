@@ -18,8 +18,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Courselib" />
-        <activity android:name=".CourseWindow" />
+        <activity android:name=".Courselib"
+                    android:parentActivityName=".FirstWindows"/>
+        <activity android:name=".CourseWindow"
+                    android:parentActivityName=".Courselib"/>
 
         <provider
             android:name=".coursedatabase.CourseContentProvider"

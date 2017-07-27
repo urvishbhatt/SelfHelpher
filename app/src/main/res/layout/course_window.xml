@@ -8,16 +8,23 @@
     android:background="@drawable/subselect"
     tools:context="com.example.bhatt.selfhelpher.CourseWindow">
 
+    <include
+        android:id="@+id/course_windows_appbar"
+        layout="@layout/app_bar"/>
+
+
     <FrameLayout
         android:id="@+id/fragment1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_below="@+id/course_windows_appbar"/>
 
     <Button
         android:id="@+id/Enroll_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/enroll"
+        android:contentDescription="@string/enroll"
         android:layout_alignParentBottom="true"
         android:background="?colorAccent"
         android:layout_margin="5dp"/>

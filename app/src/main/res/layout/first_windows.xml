@@ -8,15 +8,21 @@
     tools:context="com.example.bhatt.selfhelpher.FirstWindows"
     android:background="@drawable/subselect">
 
+    <include
+        android:id="@+id/custometool"
+        layout="@layout/app_bar"/>
+
     <FrameLayout
         android:id="@+id/sub_select_fragment1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_below="@+id/custometool"/>
 
     <FrameLayout
         android:id="@+id/mainwindow_fragment2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_below="@+id/custometool"/>
 
 
 </RelativeLayout>

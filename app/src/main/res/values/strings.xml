@@ -13,7 +13,7 @@
     <string name="enroll">Enroll</string>
     <string name="cancel_enrollment">cancel Enrollment</string>
 
-    <string name="add_course">add course</string>
+    <string name="add_course">Add course</string>
 
     <string name="sign_out">sign out</string>
 
@@ -27,5 +27,9 @@
     <string name="configure">Configure</string>
 
     <string name="enrollment">ENROLLMENT</string>
+
+    <string name="This_Course_is_already_in_database">This Course is already in database</string>
+
+    <string name="nointenet_message">without internet we can not serve you</string>
 
 </resources>

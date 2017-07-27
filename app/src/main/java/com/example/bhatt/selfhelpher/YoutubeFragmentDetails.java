@@ -36,8 +36,6 @@ public class YoutubeFragmentDetails extends Fragment {
 
     private TextView titleview,desview;
 
-    YouTubePlayerView playerview;
-
     final String TAG = "YoutubeVideo";
 
 

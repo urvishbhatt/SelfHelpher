@@ -27,7 +27,7 @@
             android:layout_gravity="bottom"
             android:gravity="center"
             android:textColor="#000000"
-            android:textSize="30dp"
+            android:textSize="30sp"
             android:textStyle="bold" />
 
 

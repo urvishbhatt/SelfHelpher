@@ -8,7 +8,9 @@ import android.net.Uri;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -41,6 +43,8 @@ public class CourseWindow extends AppCompatActivity {
 
     static boolean issecondfragment = false;
 
+    Toolbar toolbar;
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -55,6 +59,11 @@ public class CourseWindow extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.course_window);
 
+        toolbar = (Toolbar)findViewById(R.id.course_windows_appbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         buttn = (Button)findViewById(R.id.Enroll_button);
         buttn.setEnabled(true);
         buttn.setVisibility(View.VISIBLE);
@@ -67,6 +76,27 @@ public class CourseWindow extends AppCompatActivity {
 
             issecondfragment = true;
         }
+
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                if (INTENT_TAG.equals("MainWindow")){
+
+                    Intent intent = new Intent(CourseWindow.this,FirstWindows.class);
+                    startActivity(intent);
+
+                }else {
+
+
+                    finish();
+                }
+
+            }
+        });
+
 
         if (INTENT_TAG.equals("MainWindow")){
 
@@ -103,8 +133,6 @@ public class CourseWindow extends AppCompatActivity {
                 if ((buttn.getText().equals(getResources().getString(R.string.enroll)))){
 
 
-                    Toast.makeText(CourseWindow.this,"Buttonclick",Toast.LENGTH_SHORT).show();
-
                     ContentValues values = new ContentValues();
 
                     values.put(UserContract.UserEntry.SUBJECT,subject);
@@ -112,8 +140,6 @@ public class CourseWindow extends AppCompatActivity {
                     values.put(UserContract.UserEntry.PLAYLIST,plylistid);
 
                     getContentResolver().insert(UserContract.UserEntry.CONTENT_URL,values);
-
-                    Toast.makeText(CourseWindow.this,"Enter into database",Toast.LENGTH_SHORT).show();
 
                     Bundle bundle = new Bundle();
                     bundle.putString(FirebaseAnalytics.Param.ITEM_ID,"Enrollments");
@@ -126,7 +152,6 @@ public class CourseWindow extends AppCompatActivity {
 
                 }else {
 
-                    Toast.makeText(CourseWindow.this,"Enenrollment",Toast.LENGTH_SHORT).show();
 
                     String DELETEQUERY = UserContract.UserEntry.COURSEID +"=?";
 
@@ -135,9 +160,14 @@ public class CourseWindow extends AppCompatActivity {
                     String[] selectionArgs = { plylistid };
 
                     int i = getContentResolver().delete(UserContract.UserEntry.CONTENT_URL,DELETEQUERY,selectionArgs);
-                    Toast.makeText(CourseWindow.this,"total row delete = "+String.valueOf(i),Toast.LENGTH_SHORT).show();
 
-                    buttn.setText(getResources().getText(R.string.enroll));
+                    if (i != 0){
+
+                        Toast.makeText(CourseWindow.this,"successfully enrolled",Toast.LENGTH_SHORT).show();
+                        buttn.setText(getResources().getText(R.string.enroll));
+                    }else {
+                        Toast.makeText(CourseWindow.this,"some problem occur",Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -158,11 +188,7 @@ public class CourseWindow extends AppCompatActivity {
 
         if (DATA_IN_DATABASE){
 
-            Toast.makeText(CourseWindow.this,"in database",Toast.LENGTH_SHORT).show();
-
-        }else {
-
-            Toast.makeText(CourseWindow.this,"Not in database",Toast.LENGTH_SHORT).show();
+            Toast.makeText(CourseWindow.this,getResources().getText(R.string.This_Course_is_already_in_database),Toast.LENGTH_SHORT).show();
 
         }
     }
@@ -214,6 +240,5 @@ public class CourseWindow extends AppCompatActivity {
 
         }
     }
-
 
 }

@@ -1,10 +1,14 @@
 package com.example.bhatt.selfhelpher;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,11 +19,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import com.example.bhatt.selfhelpher.UserDatabase.UserContract;
-import com.firebase.ui.auth.AuthUI;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
-import java.util.Arrays;
+
+
 
 
 public class FirstWindows extends AppCompatActivity {
@@ -29,54 +31,84 @@ public class FirstWindows extends AppCompatActivity {
 
     private Boolean IS_IN_DATABASE;
 
-    private Menu menu;
-
-    private FirebaseAuth mFirebaseAuth;
-    private FirebaseAuth.AuthStateListener mAuthStateListener;
-    public static final int RC_SIGN_IN = 1;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.first_windows);
 
+        toolbar = (Toolbar)findViewById(R.id.custometool);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(getResources().getString(R.string.app_name));
 
 
-        if (getIntent().getExtras() != null){
+        if (isNetworkStatusAvialable(getApplicationContext())){
 
-            String intent = getIntent().getExtras().getString("INTENT_TAG","NotfromIntent");
+            if (getIntent().getExtras() != null){
 
-            Log.e("TAG_LOG_INTENT",getIntent().getExtras().getString("INTENT_TAG",intent));
+                String intent = getIntent().getExtras().getString("INTENT_TAG","NotfromIntent");
 
-            if (intent.equals("fromsetting")){
+                Log.e("TAG_LOG_INTENT",getIntent().getExtras().getString("INTENT_TAG",intent));
 
-                Toast.makeText(FirstWindows.this,"from setting",Toast.LENGTH_SHORT).show();
-                subSelect = new SubSelect();
-                getFragmentManager().beginTransaction().add(R.id.sub_select_fragment1,subSelect).commit();
+                if (intent.equals("fromsetting")){
+
+
+                    getSupportActionBar().hide();
+
+                    subSelect = new SubSelect();
+                    getFragmentManager().beginTransaction().add(R.id.sub_select_fragment1,subSelect).commit();
+
+
+                }else {
+
+                    if (savedInstanceState == null){
+                        mainwindow = new MainWindow();
+                        getFragmentManager().beginTransaction().add(R.id.mainwindow_fragment2,mainwindow).commit();
+                    }
+
+                }
             }else {
-                mainwindow = new MainWindow();
-                getFragmentManager().beginTransaction().add(R.id.mainwindow_fragment2,mainwindow).commit();
+
+                checkindatabse();
+
+                if (IS_IN_DATABASE){
+
+
+
+                    if (savedInstanceState == null){
+                        mainwindow = new MainWindow();
+                        getFragmentManager().beginTransaction().add(R.id.mainwindow_fragment2,mainwindow).commit();
+                    }
+                }else {
+
+
+                    getSupportActionBar().hide();
+
+
+                    subSelect = new SubSelect();
+                    getFragmentManager().beginTransaction().add(R.id.sub_select_fragment1,subSelect).commit();
+
+                }
             }
+
         }else {
-
-            checkindatabse();
-
-            if (IS_IN_DATABASE){
-
-                Toast.makeText(FirstWindows.this,"in database",Toast.LENGTH_SHORT).show();
-
-                mainwindow = new MainWindow();
-                getFragmentManager().beginTransaction().add(R.id.mainwindow_fragment2,mainwindow).commit();
-
-            }else {
-
-                Toast.makeText(FirstWindows.this,"Not in database",Toast.LENGTH_SHORT).show();
-
-                subSelect = new SubSelect();
-                getFragmentManager().beginTransaction().add(R.id.sub_select_fragment1,subSelect).commit();
-
-            }
+            Toast.makeText(FirstWindows.this,getResources().getString(R.string.nointenet_message),Toast.LENGTH_LONG).show();
         }
+
+
+    }
+
+    public static boolean isNetworkStatusAvialable (Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager != null)
+        {
+            NetworkInfo netInfos = connectivityManager.getActiveNetworkInfo();
+            if(netInfos != null)
+                if(netInfos.isConnected())
+                    return true;
+        }
+        return false;
     }
 
 
@@ -129,7 +161,6 @@ public class FirstWindows extends AppCompatActivity {
 
                 intent.putExtra("INTENT__TAG","setting");
 
-                Toast.makeText(FirstWindows.this,"setting click",Toast.LENGTH_SHORT).show();
 
                 startActivity(intent);
 
@@ -138,5 +169,11 @@ public class FirstWindows extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
     }
 }

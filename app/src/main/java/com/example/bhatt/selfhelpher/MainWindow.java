@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
@@ -34,9 +35,7 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.PlaylistListResponse;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.firebase.ui.auth.AuthUI;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -65,8 +64,6 @@ public class MainWindow extends Fragment implements CourselibAdpater.ListItemCli
     Object actionMode = null;
 
 
-
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -74,12 +71,13 @@ public class MainWindow extends Fragment implements CourselibAdpater.ListItemCli
         fragment2 = inflater.inflate(R.layout.main_window,container,false);
 
 
+
+
         Log.e("BuildConfig",BuildConfig.FLAVOR);
 
 
         if (BuildConfig.FLAVOR.equals("free")){
 
-            Toast.makeText(getActivity(),"Freedebug",Toast.LENGTH_SHORT).show();
 
             AdView mAdView = (AdView) fragment2.findViewById(R.id.adView);
 
@@ -88,8 +86,6 @@ public class MainWindow extends Fragment implements CourselibAdpater.ListItemCli
                     .build();
             mAdView.loadAd(adRequest);
 
-        }else {
-            Toast.makeText(getActivity(),"Paiddebug",Toast.LENGTH_SHORT).show();
         }
 
         recyclerView = (RecyclerView)fragment2.findViewById(R.id.mainwindow_recycleview);
@@ -129,7 +125,6 @@ public class MainWindow extends Fragment implements CourselibAdpater.ListItemCli
 
                 Youtubelinks.add(cursor.getString(a));
 
-                Toast.makeText(getActivity(),Youtubelinks.get(num),Toast.LENGTH_SHORT).show();
                 num++;
             }
 
@@ -166,9 +161,6 @@ public class MainWindow extends Fragment implements CourselibAdpater.ListItemCli
 
                     }
                 }
-
-                Toast.makeText(getActivity(),"Toast in Mainwindow",Toast.LENGTH_SHORT).show();
-
                 updateUI();
             }
         }.execute(YoutubelinksArray);
@@ -196,5 +188,13 @@ public class MainWindow extends Fragment implements CourselibAdpater.ListItemCli
         intent.putExtra("INTENT_TAG","MainWindow");
 
         startActivity(intent);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+
+
     }
 }
