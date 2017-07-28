@@ -53,7 +53,7 @@ public class YoutubeFragmentVideo extends Fragment {
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean wasRestored) {
 
                 Log.e(TAG,"onInitializationSuccess provider is " + provider.getClass().toString());
-                Toast.makeText(getActivity(),"Initialization youtube player Success",Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(),getResources().getText(R.string.youtube_player_done),Toast.LENGTH_LONG).show();
 
 
                 if (!wasRestored){

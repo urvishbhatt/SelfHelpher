@@ -116,9 +116,9 @@ public class CourseWindow extends AppCompatActivity implements android.app.Loade
             subject = getIntent().getStringExtra("subject");
             Course_id = getIntent().getDoubleExtra("Course_id", 0.0);
 
+
 //            checkindatabse();
 //            IToast();
-
             getLoaderManager().initLoader(4,null,this);
         }
 
@@ -166,10 +166,10 @@ public class CourseWindow extends AppCompatActivity implements android.app.Loade
 
                     if (i != 0) {
 
-                        Toast.makeText(CourseWindow.this, "successfully enrolled", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CourseWindow.this, getResources().getString(R.string.successfully_enrolled), Toast.LENGTH_SHORT).show();
                         buttn.setText(getResources().getText(R.string.enroll));
                     } else {
-                        Toast.makeText(CourseWindow.this, "some problem occur", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CourseWindow.this, getResources().getString(R.string.some_problem_occur), Toast.LENGTH_SHORT).show();
                     }
                 }
             }

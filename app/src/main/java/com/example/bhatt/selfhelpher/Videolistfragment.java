@@ -103,10 +103,9 @@ public class Videolistfragment extends Fragment implements VideoListAdpater.Vide
                     super.onPostExecute(videoListResponse);
 
                     if (videoListResponse != null){
-                        Toast.makeText(getActivity(),"YOY",Toast.LENGTH_SHORT).show();
                         UIworks(videoListResponse);
                     } else {
-                        Toast.makeText(getActivity(),"FUCK",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(),getResources().getText(R.string.youtube_problem),Toast.LENGTH_SHORT).show();
                     }
                 }
             };

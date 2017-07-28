@@ -31,7 +31,6 @@ public class YoutubeVideo extends YouTubeBaseActivity implements YouTubePlayer.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.youtube_video);
 
-
         titleview = (TextView)findViewById(R.id.video_Title);
         desview = (TextView)findViewById(R.id.video_Des);
 
@@ -40,7 +39,6 @@ public class YoutubeVideo extends YouTubeBaseActivity implements YouTubePlayer.O
         Youtubelink = bundle.getString("Youtubelink");
         Youtubetitle = bundle.getString("Youtubetitle");
         Youtubedes = bundle.getString("Youtubedes");
-
 
         titleview.setText(Youtubetitle);
         desview.setText(Youtubedes);
@@ -54,14 +52,11 @@ public class YoutubeVideo extends YouTubeBaseActivity implements YouTubePlayer.O
     public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean wasRestored) {
 
         Log.e(TAG,"onInitializationSuccess provider is " + provider.getClass().toString());
-        Toast.makeText(this,"Initialization youtube player Success",Toast.LENGTH_LONG).show();
-
+        Toast.makeText(this,getResources().getText(R.string.youtube_player_done),Toast.LENGTH_LONG).show();
 
         if (!wasRestored){
             youTubePlayer.loadVideo(Youtubelink);
         }
-
-
     }
 
     @Override
@@ -72,9 +67,7 @@ public class YoutubeVideo extends YouTubeBaseActivity implements YouTubePlayer.O
         if(youTubeInitializationResult.isUserRecoverableError()){
             youTubeInitializationResult.getErrorDialog(this,REQUEST_CODE).show();
         } else {
-            String errorMessager = String.format("there was error initialize the YoutubePlayer (%1s)",youTubeInitializationResult.toString());
-            Toast.makeText(this,errorMessager,Toast.LENGTH_LONG).show();
+            Toast.makeText(this,getResources().getText(R.string.youtube_problem),Toast.LENGTH_LONG).show();
         }
-
     }
 }

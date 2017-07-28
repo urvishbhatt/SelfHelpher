@@ -32,4 +32,13 @@
 
     <string name="nointenet_message">without internet we can not serve you</string>
 
+    <string name="youtube_player_done">Initialization youtube player Success</string>
+
+    <string name="successfully_enrolled">successfully enrolled</string>
+    <string name="some_problem_occur">some problem occur</string>
+
+    <string name="youtube_problem">problem occur in video initializing</string>
+
+
+
 </resources>

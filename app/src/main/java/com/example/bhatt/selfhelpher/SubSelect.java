@@ -1,17 +1,13 @@
 package com.example.bhatt.selfhelpher;
 
+import android.app.Fragment;
 import android.app.LoaderManager;
 import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.database.Cursor;
-import android.os.Build;
-import android.preference.TwoStatePreference;
-import android.support.annotation.Nullable;
-import android.app.Fragment;
-import android.support.v4.content.Loader;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,12 +15,9 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
-import android.widget.Toast;
-
-
 
 import com.example.bhatt.selfhelpher.coursedatabase.CourseContract;
-import com.example.bhatt.selfhelpher.dataprovider.dataprovider;
+import com.example.bhatt.selfhelpher.dataprovider.Dataprovider;
 
 public class SubSelect extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
 
@@ -131,19 +124,19 @@ public class SubSelect extends Fragment implements LoaderManager.LoaderCallbacks
 
     private void EnterDatabase() {
 
-        String[] coursename = dataprovider.coursename;
+        String[] coursename = Dataprovider.coursename;
 
-        double[] helthcourseid = dataprovider.helthcourseid;
-        String[] helthplaylist = dataprovider.helthplaylist;
+        double[] helthcourseid = Dataprovider.helthcourseid;
+        String[] helthplaylist = Dataprovider.helthplaylist;
 
-        double[] wealthcourseid = dataprovider.wealthcourseid;
-        String[] wealthplalist = dataprovider.wealthplalist;
+        double[] wealthcourseid = Dataprovider.wealthcourseid;
+        String[] wealthplalist = Dataprovider.wealthplalist;
 
-        double[] lovecourseid = dataprovider.lovecourseid;
-        String[] loveplaylist = dataprovider.loveplaylist;
+        double[] lovecourseid = Dataprovider.lovecourseid;
+        String[] loveplaylist = Dataprovider.loveplaylist;
 
-        double[] happinesscourseid = dataprovider.happinesscourseid;
-        String[] happinessplaylist = dataprovider.happinessplaylist;
+        double[] happinesscourseid = Dataprovider.happinesscourseid;
+        String[] happinessplaylist = Dataprovider.happinessplaylist;
 
 
         ContentValues values = new ContentValues();
@@ -231,16 +224,13 @@ public class SubSelect extends Fragment implements LoaderManager.LoaderCallbacks
         Log.e("new_onLoadFinished",String.valueOf(count));
 
         if (count == 0){
-
             EnterDatabase();
-
         }
-
-
     }
 
     @Override
     public void onLoaderReset(android.content.Loader<Cursor> loader) {
 
     }
+
 }
