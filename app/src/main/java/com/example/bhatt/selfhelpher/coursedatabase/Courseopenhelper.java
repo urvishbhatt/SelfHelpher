@@ -4,13 +4,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-
-import static java.sql.Types.INTEGER;
-
 /**
  * Created by bhatt on 20-07-2017.
  */
@@ -29,16 +22,17 @@ public class Courseopenhelper extends SQLiteOpenHelper {
 
 
         String SQL_QUERY = "CREATE TABLE "
-                        + CourseContract.CourseEntry.TABLE_NAME + "("
-                        + CourseContract.CourseEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                        + CourseContract.CourseEntry.SUBJECT + " TEXT, "
-                        + CourseContract.CourseEntry.COURSEID + " FLOAT, "
-                        + CourseContract.CourseEntry.PLAYLIST + " TEXT);" ;
+                + CourseContract.CourseEntry.TABLE_NAME + "("
+                + CourseContract.CourseEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + CourseContract.CourseEntry.SUBJECT + " TEXT, "
+                + CourseContract.CourseEntry.COURSEID + " FLOAT, "
+                + CourseContract.CourseEntry.PLAYLIST + " TEXT);";
 
         db.execSQL(SQL_QUERY);
 
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) { }
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    }
 }

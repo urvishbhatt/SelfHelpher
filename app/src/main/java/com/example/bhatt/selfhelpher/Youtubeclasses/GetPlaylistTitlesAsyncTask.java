@@ -30,16 +30,16 @@ public class GetPlaylistTitlesAsyncTask extends AsyncTask<String[], Void, Playli
         PlaylistListResponse playlistListResponse;
         try {
             playlistListResponse = mYouTubeDataApi.playlists()
-                .list(YOUTUBE_PLAYLIST_PART)
-                .setId(TextUtils.join(",", playlistIds))
-                .setFields(YOUTUBE_PLAYLIST_FIELDS)
-                .setKey(ApiKey.YOUTUBE_API_KEY)
-                .execute();
+                    .list(YOUTUBE_PLAYLIST_PART)
+                    .setId(TextUtils.join(",", playlistIds))
+                    .setFields(YOUTUBE_PLAYLIST_FIELDS)
+                    .setKey(ApiKey.YOUTUBE_API_KEY)
+                    .execute();
         } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
-         
+
         return playlistListResponse;
     }
 }

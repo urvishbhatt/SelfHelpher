@@ -17,7 +17,7 @@ public class CourseContract {
 
     public static final class CourseEntry implements BaseColumns {
 
-        public static final Uri CONTENT_URL = Uri.withAppendedPath(BASE_CONTENT_URL,PATH_COURSE);
+        public static final Uri CONTENT_URL = Uri.withAppendedPath(BASE_CONTENT_URL, PATH_COURSE);
 
         public final static String TABLE_NAME = "courses";
 

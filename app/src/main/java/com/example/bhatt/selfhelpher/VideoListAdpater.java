@@ -1,7 +1,6 @@
 package com.example.bhatt.selfhelpher;
 
 import android.content.Context;
-import android.provider.ContactsContract;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,12 +28,11 @@ import java.util.TimeZone;
 
 public class VideoListAdpater extends RecyclerView.Adapter<VideoListAdpater.MyViewHolder> {
 
+    public VideoClickListener ClickListener = null;
     List<Video> itams;
     Context context;
-
-    private int randomAndroidColor;
-
     int lastPosition = -1;
+    private int randomAndroidColor;
 
     public VideoListAdpater(List<Video> itams, VideoClickListener context, int randomAndroidColor, Context context1) {
 
@@ -42,44 +40,6 @@ public class VideoListAdpater extends RecyclerView.Adapter<VideoListAdpater.MyVi
         ClickListener = context;
         this.context = context1;
         this.randomAndroidColor = randomAndroidColor;
-    }
-
-    @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
-
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.videolistfragment_card, parent, false);
-
-        return new VideoListAdpater.MyViewHolder(itemView);
-
-    }
-
-    @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
-
-        holder.numberview.setText(String.valueOf(position+1));
-        holder.titleview.setText(itams.get(position).getSnippet().getTitle());
-
-        String isodate = itams.get(position).getContentDetails().getDuration();
-        Log.e("isodate",isodate);
-
-        String length = convertYouTubeDuration(isodate);
-        holder.lengthview.setText(length);
-        holder.imageView.setBackgroundColor(randomAndroidColor);
-
-
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-
-            if(position >lastPosition) {
-
-                Animation animation = AnimationUtils.loadAnimation(context,
-                        R.anim.up_from_bottom);
-                holder.itemView.startAnimation(animation);
-                lastPosition = position;
-            }
-
-        }
     }
 
     /*******************************************************/
@@ -108,31 +68,66 @@ public class VideoListAdpater extends RecyclerView.Adapter<VideoListAdpater.MyVi
         c.setTimeZone(TimeZone.getDefault());
 
         String time = "";
-        if ( c.get(Calendar.HOUR) > 0 ) {
-            if ( String.valueOf(c.get(Calendar.HOUR)).length() == 1 ) {
+        if (c.get(Calendar.HOUR) > 0) {
+            if (String.valueOf(c.get(Calendar.HOUR)).length() == 1) {
                 time += "0" + c.get(Calendar.HOUR);
-            }
-            else {
+            } else {
                 time += c.get(Calendar.HOUR);
             }
             time += ":";
         }
         // test minute
-        if ( String.valueOf(c.get(Calendar.MINUTE)).length() == 1 ) {
+        if (String.valueOf(c.get(Calendar.MINUTE)).length() == 1) {
             time += "0" + c.get(Calendar.MINUTE);
-        }
-        else {
+        } else {
             time += c.get(Calendar.MINUTE);
         }
         time += ":";
         // test second
-        if ( String.valueOf(c.get(Calendar.SECOND)).length() == 1 ) {
+        if (String.valueOf(c.get(Calendar.SECOND)).length() == 1) {
             time += "0" + c.get(Calendar.SECOND);
-        }
-        else {
+        } else {
             time += c.get(Calendar.SECOND);
         }
-        return time ;
+        return time;
+    }
+
+    @Override
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.videolistfragment_card, parent, false);
+
+        return new VideoListAdpater.MyViewHolder(itemView);
+
+    }
+
+    @Override
+    public void onBindViewHolder(MyViewHolder holder, int position) {
+
+        holder.numberview.setText(String.valueOf(position + 1));
+        holder.titleview.setText(itams.get(position).getSnippet().getTitle());
+
+        String isodate = itams.get(position).getContentDetails().getDuration();
+        Log.e("isodate", isodate);
+
+        String length = convertYouTubeDuration(isodate);
+        holder.lengthview.setText(length);
+        holder.imageView.setBackgroundColor(randomAndroidColor);
+
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+
+            if (position > lastPosition) {
+
+                Animation animation = AnimationUtils.loadAnimation(context,
+                        R.anim.up_from_bottom);
+                holder.itemView.startAnimation(animation);
+                lastPosition = position;
+            }
+
+        }
     }
 
     /*******************************************************/
@@ -141,9 +136,13 @@ public class VideoListAdpater extends RecyclerView.Adapter<VideoListAdpater.MyVi
         return itams.size();
     }
 
+    interface VideoClickListener {
+        void onListItemClick(int clickedItemIndex);
+    }
+
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView numberview,titleview,lengthview;
+        TextView numberview, titleview, lengthview;
         ImageView imageView;
 
         public MyViewHolder(View itemView) {
@@ -165,9 +164,5 @@ public class VideoListAdpater extends RecyclerView.Adapter<VideoListAdpater.MyVi
             ClickListener.onListItemClick(clickedPostsion);
         }
     }
-
-    public VideoClickListener ClickListener = null;
-
-    interface VideoClickListener { void onListItemClick(int clickedItemIndex); }
 
 }

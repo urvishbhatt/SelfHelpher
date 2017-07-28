@@ -1,14 +1,9 @@
 package com.example.bhatt.selfhelpher;
 
 
-import android.annotation.SuppressLint;
-
-
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +14,6 @@ import com.example.bhatt.selfhelpher.Youtubeclasses.ApiKey;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerFragment;
-import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 
 
 /**
@@ -29,18 +23,16 @@ import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 public class YoutubeFragmentVideo extends Fragment {
 
 
-
     View fragment3;
-    private String Youtubelink;
     String TAG = "YoutubeFragmentVideo";
-
     YouTubePlayerFragment youTubePlayerFragment;
+    private String Youtubelink;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
-        fragment3 = inflater.inflate(R.layout.youtubefragmentview,container,false);
+        fragment3 = inflater.inflate(R.layout.youtubefragmentview, container, false);
 
         Youtubelink = getArguments().getString("Youtubelink");
 
@@ -52,11 +44,11 @@ public class YoutubeFragmentVideo extends Fragment {
             @Override
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean wasRestored) {
 
-                Log.e(TAG,"onInitializationSuccess provider is " + provider.getClass().toString());
-                Toast.makeText(getActivity(),getResources().getText(R.string.youtube_player_done),Toast.LENGTH_LONG).show();
+                Log.e(TAG, "onInitializationSuccess provider is " + provider.getClass().toString());
+                Toast.makeText(getActivity(), getResources().getText(R.string.youtube_player_done), Toast.LENGTH_LONG).show();
 
 
-                if (!wasRestored){
+                if (!wasRestored) {
                     youTubePlayer.loadVideo(Youtubelink);
                 }
 
@@ -67,19 +59,17 @@ public class YoutubeFragmentVideo extends Fragment {
 
                 final int REQUEST_CODE = 1;
 
-                if(youTubeInitializationResult.isUserRecoverableError()){
-                    youTubeInitializationResult.getErrorDialog(getActivity(),REQUEST_CODE).show();
+                if (youTubeInitializationResult.isUserRecoverableError()) {
+                    youTubeInitializationResult.getErrorDialog(getActivity(), REQUEST_CODE).show();
                 } else {
-                    String errorMessager = String.format("there was error initialize the YoutubePlayer (%1s)",youTubeInitializationResult.toString());
-                    Toast.makeText(getActivity(),errorMessager,Toast.LENGTH_LONG).show();
+                    String errorMessager = String.format("there was error initialize the YoutubePlayer (%1s)", youTubeInitializationResult.toString());
+                    Toast.makeText(getActivity(), errorMessager, Toast.LENGTH_LONG).show();
                 }
             }
         });
 
         return fragment3;
     }
-
-
 
 
 }

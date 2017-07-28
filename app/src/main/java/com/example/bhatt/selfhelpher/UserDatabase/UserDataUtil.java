@@ -8,9 +8,11 @@ public class UserDataUtil {
 
     public static String Youtubeplaylist;
 
-    public UserDataUtil(String Youtubeplaylist){
+    public UserDataUtil(String Youtubeplaylist) {
         this.Youtubeplaylist = Youtubeplaylist;
     }
 
-    public static String getYoutubeplaylist(){ return Youtubeplaylist; }
+    public static String getYoutubeplaylist() {
+        return Youtubeplaylist;
+    }
 }

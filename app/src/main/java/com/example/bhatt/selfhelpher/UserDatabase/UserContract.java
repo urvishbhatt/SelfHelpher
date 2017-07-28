@@ -15,9 +15,9 @@ public class UserContract {
 
     public static final String USER_COURSE = "users";
 
-    public static final class UserEntry implements BaseColumns{
+    public static final class UserEntry implements BaseColumns {
 
-        public static final Uri CONTENT_URL = Uri.withAppendedPath(BASE_CONTENT_URL,USER_COURSE);
+        public static final Uri CONTENT_URL = Uri.withAppendedPath(BASE_CONTENT_URL, USER_COURSE);
 
         public final static String TABLE_NAME = "users";
 

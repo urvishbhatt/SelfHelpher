@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,84 +9,80 @@
         android:id="@+id/sub_select_maintext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:foregroundGravity="center_horizontal"
-        android:text="@string/subselect_main_text"
-        android:contentDescription="@string/subselect_main_text"
-        android:layout_marginTop="@dimen/Text_margin_top"
         android:layout_centerHorizontal="true"
-        android:textSize="@dimen/Hedding_text"/>
+        android:layout_marginTop="@dimen/Text_margin_top"
+        android:contentDescription="@string/subselect_main_text"
+        android:foregroundGravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:text="@string/subselect_main_text"
+        android:textSize="@dimen/Hedding_text" />
 
     <TextView
         android:id="@+id/sub_select_maintext2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_below="@+id/sub_select_maintext"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
-        android:text="@string/subselect_main_text2"
         android:contentDescription="@string/subselect_main_text2"
-        android:textSize="18dp"/>
+        android:text="@string/subselect_main_text2"
+        android:textSize="18dp" />
 
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true">
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/health_textview"
             android:layout_width="@dimen/subject_width"
             android:layout_height="@dimen/subject_hight"
+            android:contentDescription="@string/health"
             android:gravity="center"
-            android:text="@string/health"
-            android:contentDescription="@string/health"/>
+            android:text="@string/health" />
 
 
         <LinearLayout
             android:layout_width="1dp"
             android:layout_height="@dimen/subject_hight"
-            android:background="@color/borderColor"/>
+            android:background="@color/borderColor" />
 
         <TextView
             android:id="@+id/wealth_textview"
             android:layout_width="@dimen/subject_width"
             android:layout_height="@dimen/subject_hight"
-            android:gravity="center"
-            android:text="@string/wealth"
             android:contentDescription="@string/wealth"
-            />
+            android:gravity="center"
+            android:text="@string/wealth" />
 
         <LinearLayout
             android:layout_width="1dp"
             android:layout_height="@dimen/subject_hight"
-            android:background="@color/borderColor"/>
+            android:background="@color/borderColor" />
 
         <TextView
             android:id="@+id/love_textview"
             android:layout_width="@dimen/subject_width"
             android:layout_height="@dimen/subject_hight"
-            android:gravity="center"
-            android:text="@string/love"
             android:contentDescription="@string/love"
-            />
+            android:gravity="center"
+            android:text="@string/love" />
 
         <LinearLayout
             android:layout_width="1dp"
             android:layout_height="@dimen/subject_hight"
-            android:background="@color/borderColor"/>
+            android:background="@color/borderColor" />
 
         <TextView
             android:id="@+id/happiness_textview"
             android:layout_width="@dimen/subject_width"
             android:layout_height="@dimen/subject_hight"
-            android:gravity="center"
-            android:text="@string/happiness"
             android:contentDescription="@string/happiness"
-            />
-
+            android:gravity="center"
+            android:text="@string/happiness" />
 
 
     </LinearLayout>

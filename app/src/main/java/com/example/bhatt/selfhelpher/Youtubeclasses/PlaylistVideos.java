@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public class PlaylistVideos extends ArrayList<Video>{
+public class PlaylistVideos extends ArrayList<Video> {
 
     public final String playlistId;
     private String mNextPageToken;
@@ -26,11 +26,11 @@ public class PlaylistVideos extends ArrayList<Video>{
         playlistId = id;
     }
 
-    public void setNextPageToken(String nextPageToken) {
-        mNextPageToken = nextPageToken;
-    }
-
     public String getNextPageToken() {
         return mNextPageToken;
+    }
+
+    public void setNextPageToken(String nextPageToken) {
+        mNextPageToken = nextPageToken;
     }
 }

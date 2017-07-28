@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,23 +8,23 @@
 
     <include
         android:id="@+id/course_windows_appbar"
-        layout="@layout/app_bar"/>
+        layout="@layout/app_bar" />
 
 
     <FrameLayout
         android:id="@+id/fragment1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/course_windows_appbar"/>
+        android:layout_below="@+id/course_windows_appbar" />
 
     <Button
         android:id="@+id/Enroll_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/enroll"
-        android:contentDescription="@string/enroll"
         android:layout_alignParentBottom="true"
+        android:layout_margin="5dp"
         android:background="?colorAccent"
-        android:layout_margin="5dp"/>
+        android:contentDescription="@string/enroll"
+        android:text="@string/enroll" />
 
 </RelativeLayout>

@@ -18,7 +18,6 @@ public class NewAppWidget extends AppWidgetProvider {
                                 int appWidgetId) {
 
 
-
         CharSequence Total = NewAppWidgetConfigureActivity.getTotal();
         CharSequence health = NewAppWidgetConfigureActivity.getHelth();
         CharSequence wealth = NewAppWidgetConfigureActivity.getWealth();

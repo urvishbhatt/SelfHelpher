@@ -2,21 +2,20 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/subselect"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:background="@drawable/subselect">
-
+    android:padding="16dp">
 
 
     <Button
         android:id="@+id/add_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:layout_marginTop="8dp"
         android:background="@color/colorAccent"
-        android:text="@string/widget_button"
         android:contentDescription="@string/widget_button"
         android:padding="10dp"
-        android:layout_centerInParent="true"/>
+        android:text="@string/widget_button" />
 
 </RelativeLayout>

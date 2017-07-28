@@ -5,5 +5,5 @@ package com.example.bhatt.selfhelpher.Youtubeclasses;
  */
 
 public class ApiKey {
-    public static  final String YOUTUBE_API_KEY = "AIzaSyBx-S3IX3B0IfPWtdvpMHU1MzF_t6bf94o";
+    public static final String YOUTUBE_API_KEY = "AIzaSyBx-S3IX3B0IfPWtdvpMHU1MzF_t6bf94o";
 }

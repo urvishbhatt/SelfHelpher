@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by bhatt on 21-07-2017.
@@ -20,14 +19,13 @@ import java.util.List;
 
 public class CourselibAdpater extends RecyclerView.Adapter<CourselibAdpater.MyViewHolder> {
 
+    final private ListItemClickListener mOnClickListener;
     ArrayList<CourselibData> mPlaylistTitles = new ArrayList<>();
     Context context;
-
+    int lastPosition = -1;
     private SparseBooleanArray selectedItems;
 
-    int lastPosition = -1;
-
-    public CourselibAdpater(Context context, ArrayList<CourselibData> arrayList, ListItemClickListener listener){
+    public CourselibAdpater(Context context, ArrayList<CourselibData> arrayList, ListItemClickListener listener) {
         this.context = context;
         this.mPlaylistTitles = arrayList;
         mOnClickListener = listener;
@@ -51,7 +49,7 @@ public class CourselibAdpater extends RecyclerView.Adapter<CourselibAdpater.MyVi
         holder.textView.setText(courselibData.getcoursename());
         holder.imageView.setBackgroundColor(courselibData.getcolor());
 
-        if(position >lastPosition) {
+        if (position > lastPosition) {
 
             Animation animation = AnimationUtils.loadAnimation(context,
                     R.anim.up_from_bottom);
@@ -66,6 +64,10 @@ public class CourselibAdpater extends RecyclerView.Adapter<CourselibAdpater.MyVi
         return mPlaylistTitles.size();
     }
 
+    public interface ListItemClickListener {
+        void onListItemClick(int clickedItemIndex);
+    }
+
     /*******************************************************************************************/
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -76,8 +78,8 @@ public class CourselibAdpater extends RecyclerView.Adapter<CourselibAdpater.MyVi
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            textView = (TextView)itemView.findViewById(R.id.course_lib_title);
-            imageView = (ImageView)itemView.findViewById(R.id.course_lib_image);
+            textView = (TextView) itemView.findViewById(R.id.course_lib_title);
+            imageView = (ImageView) itemView.findViewById(R.id.course_lib_image);
 
             itemView.setOnClickListener(this);
         }
@@ -90,8 +92,4 @@ public class CourselibAdpater extends RecyclerView.Adapter<CourselibAdpater.MyVi
             mOnClickListener.onListItemClick(clickedPostsion);
         }
     }
-
-    final private ListItemClickListener mOnClickListener;
-
-    public interface ListItemClickListener { void onListItemClick(int clickedItemIndex); }
 }

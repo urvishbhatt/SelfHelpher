@@ -1,28 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.bhatt.selfhelpher.FirstWindows"
-    android:background="@drawable/subselect">
+    android:background="@drawable/subselect"
+    tools:context="com.example.bhatt.selfhelpher.FirstWindows">
 
     <include
         android:id="@+id/custometool"
-        layout="@layout/app_bar"/>
+        layout="@layout/app_bar" />
 
     <FrameLayout
         android:id="@+id/sub_select_fragment1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/custometool"/>
+        android:layout_below="@+id/custometool" />
 
     <FrameLayout
         android:id="@+id/mainwindow_fragment2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/custometool"/>
+        android:layout_below="@+id/custometool" />
 
 
 </RelativeLayout>

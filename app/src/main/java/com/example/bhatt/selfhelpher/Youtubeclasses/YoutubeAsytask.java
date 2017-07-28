@@ -22,27 +22,23 @@ import java.util.List;
 
 public abstract class YoutubeAsytask extends AsyncTask<Object, Object, VideoListResponse> {
 
-   /************************************/
-
-    private YouTube mYoutubeDataApi;
-    private String YoutubeVideoplaylist;
-    private String nextPageToken;
-
-
-    private final GsonFactory mJsonFactory = new GsonFactory();
-    private final HttpTransport mTransport = AndroidHttp.newCompatibleTransport();
-
     /**************************************/
 
     private static final String TAG = "GetPlaylistAsyncTask";
-    private final Long YOUTUBE_PLAYLIST_MAX_RESULTS = 50L;
-
     //see: https://developers.google.com/youtube/v3/docs/playlistItems/list
     private static final String YOUTUBE_PLAYLIST_PART = "snippet";
     private static final String YOUTUBE_PLAYLIST_FIELDS = "pageInfo,nextPageToken,items(id,snippet(resourceId/videoId))";
     //see: https://developers.google.com/youtube/v3/docs/videos/list
     private static final String YOUTUBE_VIDEOS_PART = "snippet,contentDetails,statistics"; // video resource properties that the response will include.
     private static final String YOUTUBE_VIDEOS_FIELDS = "items(id,snippet(title,description,thumbnails/high),contentDetails/duration,statistics)"; // selector specifying which fields to include in a partial response.
+    private final GsonFactory mJsonFactory = new GsonFactory();
+    private final HttpTransport mTransport = AndroidHttp.newCompatibleTransport();
+    private final Long YOUTUBE_PLAYLIST_MAX_RESULTS = 50L;
+    /************************************/
+
+    private YouTube mYoutubeDataApi;
+    private String YoutubeVideoplaylist;
+    private String nextPageToken;
 
 
     public YoutubeAsytask(String youtubeVideoplaylist, String nextPageToken) {
@@ -99,7 +95,6 @@ public abstract class YoutubeAsytask extends AsyncTask<Object, Object, VideoList
         } catch (IOException e) {
             e.printStackTrace();
         }
-
 
 
         String s = videoIds.get(0);

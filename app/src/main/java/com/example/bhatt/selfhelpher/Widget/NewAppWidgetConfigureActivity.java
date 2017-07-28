@@ -4,14 +4,9 @@ import android.app.Activity;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.bhatt.selfhelpher.R;
 import com.example.bhatt.selfhelpher.UserDatabase.UserContract;
@@ -25,16 +20,53 @@ public class NewAppWidgetConfigureActivity extends Activity {
 
     private static final String PREFS_NAME = "com.example.bhatt.selfhelpher.Widget.NewAppWidget";
     private static final String PREF_PREFIX_KEY = "appwidget_";
+    static int course_total, user_total;
+    static int course_health, user_health;
+    static int course_wealth, user_wealth;
+    static int course_love, user_love;
+    static int course_happiness, user_happiness;
     int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
-
-    static int course_total,user_total;
-    static int course_health,user_health;
-    static int course_wealth,user_wealth;
-    static int course_love,user_love;
-    static int course_happiness,user_happiness;
+    View.OnClickListener mOnClickListener = new View.OnClickListener() {
+        public void onClick(View v) {
+            final Context context = NewAppWidgetConfigureActivity.this;
 
 
+            // It is the responsibility of the configuration activity to update the app widget
+            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+            NewAppWidget.updateAppWidget(context, appWidgetManager, mAppWidgetId);
 
+            // Make sure we pass back the original appWidgetId
+            Intent resultValue = new Intent();
+            resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
+            setResult(RESULT_OK, resultValue);
+            finish();
+        }
+    };
+
+
+    public NewAppWidgetConfigureActivity() {
+        super();
+    }
+
+    public static String getTotal() {
+        return String.valueOf(user_total) + "/" + String.valueOf(course_total);
+    }
+
+    public static String getHelth() {
+        return "health:-" + String.valueOf(user_health) + "/" + String.valueOf(course_health);
+    }
+
+    public static String getWealth() {
+        return "wealth:-" + String.valueOf(user_wealth) + "/" + String.valueOf(course_wealth);
+    }
+
+    public static String getLove() {
+        return "love:-" + String.valueOf(user_love) + "/" + String.valueOf(course_love);
+    }
+
+    public static String getHappiness() {
+        return "happiness:-" + String.valueOf(user_happiness) + "/" + String.valueOf(course_happiness);
+    }
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -50,8 +82,6 @@ public class NewAppWidgetConfigureActivity extends Activity {
 
         CourseCounter();
         UserCounter();
-
-
 
 
         // Find the widget id from the intent.
@@ -71,33 +101,7 @@ public class NewAppWidgetConfigureActivity extends Activity {
 
     }
 
-
-
-
-    View.OnClickListener mOnClickListener = new View.OnClickListener() {
-        public void onClick(View v) {
-            final Context context = NewAppWidgetConfigureActivity.this;
-
-
-
-            // It is the responsibility of the configuration activity to update the app widget
-            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-            NewAppWidget.updateAppWidget(context, appWidgetManager, mAppWidgetId);
-
-            // Make sure we pass back the original appWidgetId
-            Intent resultValue = new Intent();
-            resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
-            setResult(RESULT_OK, resultValue);
-            finish();
-        }
-    };
-
-    public NewAppWidgetConfigureActivity() {
-        super();
-    }
-
-
-    private void CourseCounter(){
+    private void CourseCounter() {
 
         String[] project = {
                 CourseContract.CourseEntry.SUBJECT};
@@ -111,11 +115,11 @@ public class NewAppWidgetConfigureActivity extends Activity {
                 null
         );
 
-        try{
+        try {
             int a = cursor.getColumnIndex(CourseContract.CourseEntry.SUBJECT);
 
 
-            while(cursor.moveToNext()) {
+            while (cursor.moveToNext()) {
 
                 String name = cursor.getString(a);
 
@@ -138,9 +142,9 @@ public class NewAppWidgetConfigureActivity extends Activity {
                 }
             }
 
-        }finally {
+        } finally {
 
-            course_total = course_health+course_wealth+course_love+course_happiness;
+            course_total = course_health + course_wealth + course_love + course_happiness;
             cursor.close();
 
         }
@@ -162,11 +166,11 @@ public class NewAppWidgetConfigureActivity extends Activity {
                 null
         );
 
-        try{
+        try {
             int a = cursor.getColumnIndex(UserContract.UserEntry.SUBJECT);
 
 
-            while(cursor.moveToNext()) {
+            while (cursor.moveToNext()) {
 
                 String name = cursor.getString(a);
 
@@ -189,20 +193,13 @@ public class NewAppWidgetConfigureActivity extends Activity {
                 }
             }
 
-        }finally {
+        } finally {
 
-            user_total = user_health+user_wealth+user_love+user_happiness;
+            user_total = user_health + user_wealth + user_love + user_happiness;
             cursor.close();
 
         }
 
 
-
     }
-
-    public static String getTotal() { return  String.valueOf(user_total) + "/" + String.valueOf(course_total); }
-    public static String getHelth() { return  "health:-" + String.valueOf(user_health) + "/" + String.valueOf(course_health); }
-    public static String getWealth() { return "wealth:-" + String.valueOf(user_wealth) + "/" + String.valueOf(course_wealth); }
-    public static String getLove() { return "love:-" + String.valueOf(user_love) + "/" + String.valueOf(course_love); }
-    public static String getHappiness() { return "happiness:-" + String.valueOf(user_happiness) + "/" + String.valueOf(course_happiness); }
 }

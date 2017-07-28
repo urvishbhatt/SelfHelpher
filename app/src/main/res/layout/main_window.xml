@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.bhatt.selfhelpher.MainWindow"
+    android:orientation="vertical"
     android:padding="5dp"
-    android:orientation="vertical">
+    tools:context="com.example.bhatt.selfhelpher.MainWindow">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/mainwindow_recycleview"
@@ -22,7 +21,6 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         ads:adSize="BANNER"
-        ads:adUnitId="@string/banner_ad_unit_id"
-        />
+        ads:adUnitId="@string/banner_ad_unit_id" />
 
 </RelativeLayout>

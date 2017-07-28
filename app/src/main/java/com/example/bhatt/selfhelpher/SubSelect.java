@@ -19,48 +19,44 @@ import android.widget.TextView;
 import com.example.bhatt.selfhelpher.coursedatabase.CourseContract;
 import com.example.bhatt.selfhelpher.dataprovider.Dataprovider;
 
-public class SubSelect extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
-
-    private TextView healthtextView,wealthtextView,lovetextView,happinesstextView;
-    private Intent intent;
-
-    private View fragment1;
+public class SubSelect extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
     Animation animation;
-
     String[] project;
     int count;
+    private TextView healthtextView, wealthtextView, lovetextView, happinesstextView;
+    private Intent intent;
+    private View fragment1;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        fragment1 = inflater.inflate(R.layout.sub_select,container,false);
+        fragment1 = inflater.inflate(R.layout.sub_select, container, false);
 
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            animation = AnimationUtils.loadAnimation(getContext(),R.anim.slide_up);
+            animation = AnimationUtils.loadAnimation(getContext(), R.anim.slide_up);
         }
 
 
+        getLoaderManager().initLoader(1, null, this);
 
-        getLoaderManager().initLoader(1,null,this);
 
+        intent = new Intent(getActivity(), Courselib.class);
 
-        intent = new Intent(getActivity(),Courselib.class);
-
-        healthtextView = (TextView)fragment1.findViewById(R.id.health_textview);
-        wealthtextView = (TextView)fragment1.findViewById(R.id.wealth_textview);
-        lovetextView = (TextView)fragment1.findViewById(R.id.love_textview);
-        happinesstextView = (TextView)fragment1.findViewById(R.id.happiness_textview);
+        healthtextView = (TextView) fragment1.findViewById(R.id.health_textview);
+        wealthtextView = (TextView) fragment1.findViewById(R.id.wealth_textview);
+        lovetextView = (TextView) fragment1.findViewById(R.id.love_textview);
+        happinesstextView = (TextView) fragment1.findViewById(R.id.happiness_textview);
 
 
         healthtextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                intent.putExtra("subject","health");
-                intent.putExtra("subjectno",1);
+                intent.putExtra("subject", "health");
+                intent.putExtra("subjectno", 1);
 
                 healthtextView.startAnimation(animation);
                 lovetextView.setAnimation(animation);
@@ -74,8 +70,8 @@ public class SubSelect extends Fragment implements LoaderManager.LoaderCallbacks
             @Override
             public void onClick(View v) {
 
-                intent.putExtra("subject","wealth");
-                intent.putExtra("subjectno",2);
+                intent.putExtra("subject", "wealth");
+                intent.putExtra("subjectno", 2);
 
                 healthtextView.startAnimation(animation);
                 lovetextView.setAnimation(animation);
@@ -89,8 +85,8 @@ public class SubSelect extends Fragment implements LoaderManager.LoaderCallbacks
             @Override
             public void onClick(View v) {
 
-                intent.putExtra("subject","love");
-                intent.putExtra("subjectno",3);
+                intent.putExtra("subject", "love");
+                intent.putExtra("subjectno", 3);
 
                 healthtextView.startAnimation(animation);
                 lovetextView.setAnimation(animation);
@@ -105,7 +101,7 @@ public class SubSelect extends Fragment implements LoaderManager.LoaderCallbacks
             public void onClick(View v) {
 
                 intent.putExtra("subject", "happiness");
-                intent.putExtra("subjectno",4);
+                intent.putExtra("subjectno", 4);
 
                 healthtextView.startAnimation(animation);
                 lovetextView.setAnimation(animation);
@@ -118,8 +114,6 @@ public class SubSelect extends Fragment implements LoaderManager.LoaderCallbacks
 
         return fragment1;
     }
-
-
 
 
     private void EnterDatabase() {
@@ -141,55 +135,55 @@ public class SubSelect extends Fragment implements LoaderManager.LoaderCallbacks
 
         ContentValues values = new ContentValues();
 
-        for (int i=0;coursename.length>i;i++){
+        for (int i = 0; coursename.length > i; i++) {
 
-            switch (coursename[i]){
+            switch (coursename[i]) {
 
-                case "health" :
+                case "health":
 
-                    for (int j=0;helthcourseid.length>j;j++){
+                    for (int j = 0; helthcourseid.length > j; j++) {
 
-                        values.put(CourseContract.CourseEntry.SUBJECT,coursename[i]);
-                        values.put(CourseContract.CourseEntry.COURSEID,helthcourseid[j]);
-                        values.put(CourseContract.CourseEntry.PLAYLIST,helthplaylist[j]);
+                        values.put(CourseContract.CourseEntry.SUBJECT, coursename[i]);
+                        values.put(CourseContract.CourseEntry.COURSEID, helthcourseid[j]);
+                        values.put(CourseContract.CourseEntry.PLAYLIST, helthplaylist[j]);
 
-                        getActivity().getContentResolver().insert(CourseContract.CourseEntry.CONTENT_URL,values);
-
-                    }
-                    break;
-
-                case "wealth" :
-                    for (int j=0;wealthcourseid.length>j;j++){
-
-                        values.put(CourseContract.CourseEntry.SUBJECT,coursename[i]);
-                        values.put(CourseContract.CourseEntry.COURSEID,wealthcourseid[j]);
-                        values.put(CourseContract.CourseEntry.PLAYLIST,wealthplalist[j]);
-
-                        getActivity().getContentResolver().insert(CourseContract.CourseEntry.CONTENT_URL,values);
+                        getActivity().getContentResolver().insert(CourseContract.CourseEntry.CONTENT_URL, values);
 
                     }
                     break;
 
-                case "love" :
-                    for (int j=0;lovecourseid.length>j;j++){
+                case "wealth":
+                    for (int j = 0; wealthcourseid.length > j; j++) {
 
-                        values.put(CourseContract.CourseEntry.SUBJECT,coursename[i]);
-                        values.put(CourseContract.CourseEntry.COURSEID,lovecourseid[j]);
-                        values.put(CourseContract.CourseEntry.PLAYLIST,loveplaylist[j]);
+                        values.put(CourseContract.CourseEntry.SUBJECT, coursename[i]);
+                        values.put(CourseContract.CourseEntry.COURSEID, wealthcourseid[j]);
+                        values.put(CourseContract.CourseEntry.PLAYLIST, wealthplalist[j]);
 
-                        getActivity().getContentResolver().insert(CourseContract.CourseEntry.CONTENT_URL,values);
+                        getActivity().getContentResolver().insert(CourseContract.CourseEntry.CONTENT_URL, values);
 
                     }
                     break;
 
-                case "happiness" :
-                    for (int j=0;happinesscourseid.length>j;j++){
+                case "love":
+                    for (int j = 0; lovecourseid.length > j; j++) {
 
-                        values.put(CourseContract.CourseEntry.SUBJECT,coursename[i]);
-                        values.put(CourseContract.CourseEntry.COURSEID,happinesscourseid[j]);
-                        values.put(CourseContract.CourseEntry.PLAYLIST,happinessplaylist[j]);
+                        values.put(CourseContract.CourseEntry.SUBJECT, coursename[i]);
+                        values.put(CourseContract.CourseEntry.COURSEID, lovecourseid[j]);
+                        values.put(CourseContract.CourseEntry.PLAYLIST, loveplaylist[j]);
 
-                        getActivity().getContentResolver().insert(CourseContract.CourseEntry.CONTENT_URL,values);
+                        getActivity().getContentResolver().insert(CourseContract.CourseEntry.CONTENT_URL, values);
+
+                    }
+                    break;
+
+                case "happiness":
+                    for (int j = 0; happinesscourseid.length > j; j++) {
+
+                        values.put(CourseContract.CourseEntry.SUBJECT, coursename[i]);
+                        values.put(CourseContract.CourseEntry.COURSEID, happinesscourseid[j]);
+                        values.put(CourseContract.CourseEntry.PLAYLIST, happinessplaylist[j]);
+
+                        getActivity().getContentResolver().insert(CourseContract.CourseEntry.CONTENT_URL, values);
 
                     }
                     break;
@@ -221,9 +215,9 @@ public class SubSelect extends Fragment implements LoaderManager.LoaderCallbacks
 
         int count = data.getCount();
 
-        Log.e("new_onLoadFinished",String.valueOf(count));
+        Log.e("new_onLoadFinished", String.valueOf(count));
 
-        if (count == 0){
+        if (count == 0) {
             EnterDatabase();
         }
     }

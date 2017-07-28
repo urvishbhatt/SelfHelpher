@@ -16,8 +16,12 @@ public class CourselibData {
         this.colorcode = randomAndroidColor;
     }
 
-    public String getcoursename(){ return coursename; }
+    public String getcoursename() {
+        return coursename;
+    }
 
-    public int getcolor(){ return colorcode; }
+    public int getcolor() {
+        return colorcode;
+    }
 
 }

@@ -2,58 +2,21 @@ package com.example.bhatt.selfhelpher;
 
 
 import android.app.Fragment;
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.annotation.Nullable;
-
-
-
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.bhatt.selfhelpher.Youtubeclasses.ApiKey;
-import com.example.bhatt.selfhelpher.Youtubeclasses.PlaylistVideos;
 import com.example.bhatt.selfhelpher.Youtubeclasses.YoutubeAsytask;
-import com.google.api.client.auth.oauth2.Credential;
-import com.google.api.client.extensions.android.http.AndroidHttp;
-import com.google.api.client.googleapis.json.GoogleJsonResponseException;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.json.gson.GsonFactory;
-import com.google.api.client.util.Lists;
 import com.google.api.services.youtube.YouTube;
-import com.google.api.services.youtube.model.Channel;
-import com.google.api.services.youtube.model.ChannelListResponse;
-import com.google.api.services.youtube.model.PlaylistItem;
-import com.google.api.services.youtube.model.PlaylistItemListResponse;
 import com.google.api.services.youtube.model.Video;
 import com.google.api.services.youtube.model.VideoListResponse;
-import com.google.api.services.youtube.model.VideoSnippet;
 
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
-
-import java.net.CacheRequest;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -64,48 +27,42 @@ import java.util.Random;
 public class Videolistfragment extends Fragment implements VideoListAdpater.VideoClickListener {
 
     View fragment1;
-
-
-
+    Intent intent;
     private YouTube mYoutubeDataApi;
     private String YoutubeVideoplaylist;
     private String nextPageToken;
-
     private VideoListResponse videoListResponse;
     private Video item;
-
     private RecyclerView recyclerView;
-
-    Intent intent;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        fragment1 = inflater.inflate(R.layout.videolistfragment,container,false);
+        fragment1 = inflater.inflate(R.layout.videolistfragment, container, false);
 
         YoutubeVideoplaylist = getActivity().getIntent().getStringExtra("plylistid");
 
         nextPageToken = null;
 
-        recyclerView = (RecyclerView)fragment1.findViewById(R.id.videoList_recycleview);
+        recyclerView = (RecyclerView) fragment1.findViewById(R.id.videoList_recycleview);
 
 
-        if (savedInstanceState == null){
+        if (savedInstanceState == null) {
 
             int[] androidColors = getResources().getIntArray(R.array.androidcolor);
             int randomAndroidColor = androidColors[new Random().nextInt(androidColors.length)];
 
-            YoutubeAsytask youtubeAsytask = new YoutubeAsytask(YoutubeVideoplaylist,nextPageToken) {
+            YoutubeAsytask youtubeAsytask = new YoutubeAsytask(YoutubeVideoplaylist, nextPageToken) {
 
                 @Override
                 protected void onPostExecute(VideoListResponse videoListResponse) {
                     super.onPostExecute(videoListResponse);
 
-                    if (videoListResponse != null){
+                    if (videoListResponse != null) {
                         UIworks(videoListResponse);
                     } else {
-                        Toast.makeText(getActivity(),getResources().getText(R.string.youtube_problem),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), getResources().getText(R.string.youtube_problem), Toast.LENGTH_SHORT).show();
                     }
                 }
             };
@@ -117,7 +74,6 @@ public class Videolistfragment extends Fragment implements VideoListAdpater.Vide
     }
 
 
-
     private void UIworks(VideoListResponse videoListResponse) {
 
         this.videoListResponse = videoListResponse;
@@ -127,7 +83,7 @@ public class Videolistfragment extends Fragment implements VideoListAdpater.Vide
         int[] androidColors = getResources().getIntArray(R.array.androidcolor);
         int randomAndroidColor = androidColors[new Random().nextInt(androidColors.length)];
 
-        VideoListAdpater adapter = new VideoListAdpater(itams,this,randomAndroidColor,getContext());
+        VideoListAdpater adapter = new VideoListAdpater(itams, this, randomAndroidColor, getContext());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(adapter);
@@ -136,7 +92,7 @@ public class Videolistfragment extends Fragment implements VideoListAdpater.Vide
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putString("YO","YO");
+        outState.putString("YO", "YO");
     }
 
     @Override
@@ -148,39 +104,36 @@ public class Videolistfragment extends Fragment implements VideoListAdpater.Vide
         String link = item.getId().toString();
 
 
-
-        if (CourseWindow.issecondfragment){
+        if (CourseWindow.issecondfragment) {
 
             //////youtube details fragment////////////////////////////////////////
             YoutubeFragmentDetails fragment2 = new YoutubeFragmentDetails();
             Bundle bundle = new Bundle();
-            bundle.putString("Youtubetitle",item.getSnippet().getTitle());
-            bundle.putString("Youtubedes",item.getSnippet().getDescription());
+            bundle.putString("Youtubetitle", item.getSnippet().getTitle());
+            bundle.putString("Youtubedes", item.getSnippet().getDescription());
             fragment2.setArguments(bundle);
-            getFragmentManager().beginTransaction().add(R.id.fragment2,fragment2).commit();
+            getFragmentManager().beginTransaction().add(R.id.fragment2, fragment2).commit();
 
             //////youtube player fragment///////////////////////////////////////////
             YoutubeFragmentVideo fragment3 = new YoutubeFragmentVideo();
             Bundle bundle1 = new Bundle();
-            bundle1.putString("Youtubelink",link);
+            bundle1.putString("Youtubelink", link);
             fragment3.setArguments(bundle1);
-            getFragmentManager().beginTransaction().add(R.id.fragment3,fragment3).commit();
+            getFragmentManager().beginTransaction().add(R.id.fragment3, fragment3).commit();
 
 
-        }else {
+        } else {
 
             ////start youtube player activity////////////////////////////////////////
             Bundle bundle = new Bundle();
-            bundle.putString("Youtubelink",link);
-            bundle.putString("Youtubetitle",item.getSnippet().getTitle());
-            bundle.putString("Youtubedes",item.getSnippet().getDescription());
-            intent = new Intent(getActivity(),YoutubeVideo.class);
-            intent.putExtra("bundle",bundle);
+            bundle.putString("Youtubelink", link);
+            bundle.putString("Youtubetitle", item.getSnippet().getTitle());
+            bundle.putString("Youtubedes", item.getSnippet().getDescription());
+            intent = new Intent(getActivity(), YoutubeVideo.class);
+            intent.putExtra("bundle", bundle);
             startActivity(intent);
 
         }
-
-
 
 
     }

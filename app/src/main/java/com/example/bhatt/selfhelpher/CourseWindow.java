@@ -1,51 +1,34 @@
 package com.example.bhatt.selfhelpher;
 
-import android.app.FragmentTransaction;
 import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.database.Cursor;
-import android.net.Uri;
-
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.Toast;
 
-import android.support.v4.app.Fragment;
-
 import com.example.bhatt.selfhelpher.UserDatabase.UserContract;
 import com.example.bhatt.selfhelpher.UserDatabase.UserDataUtil;
-import com.example.bhatt.selfhelpher.UserDatabase.Useropenhelper;
-import com.example.bhatt.selfhelpher.coursedatabase.CourseContract;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 public class CourseWindow extends AppCompatActivity implements android.app.LoaderManager.LoaderCallbacks<Cursor> {
 
 
+    static boolean issecondfragment = false;
     Videolistfragment fragment1;
-
+    Toolbar toolbar;
     private String plylistid, subject;
     private double Course_id;
-
     private Button buttn;
-
     private boolean DATA_IN_DATABASE = false;
     private String INTENT_TAG;
-
     private FirebaseAnalytics mFirebaseAnalytics;
-
-    static boolean issecondfragment = false;
-
-    Toolbar toolbar;
 
     @Override
     public void onBackPressed() {
@@ -119,7 +102,7 @@ public class CourseWindow extends AppCompatActivity implements android.app.Loade
 
 //            checkindatabse();
 //            IToast();
-            getLoaderManager().initLoader(4,null,this);
+            getLoaderManager().initLoader(4, null, this);
         }
 
 
@@ -295,13 +278,13 @@ public class CourseWindow extends AppCompatActivity implements android.app.Loade
 
     }
 
-        @Override
-        public void onLoaderReset (android.content.Loader < Cursor > loader) {
-
-        }
-
-
-        /***********************************************************************************************/
+    @Override
+    public void onLoaderReset(android.content.Loader<Cursor> loader) {
 
     }
+
+
+    /***********************************************************************************************/
+
+}
 

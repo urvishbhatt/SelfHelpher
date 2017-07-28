@@ -4,8 +4,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.bhatt.selfhelpher.coursedatabase.CourseContract;
-
 /**
  * Created by bhatt on 23-07-2017.
  */
@@ -27,7 +25,7 @@ public class Useropenhelper extends SQLiteOpenHelper {
                 + UserContract.UserEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + UserContract.UserEntry.SUBJECT + " TEXT, "
                 + UserContract.UserEntry.COURSEID + " FLOAT, "
-                + UserContract.UserEntry.PLAYLIST + " TEXT);" ;
+                + UserContract.UserEntry.PLAYLIST + " TEXT);";
 
         db.execSQL(SQL_QUERY);
 

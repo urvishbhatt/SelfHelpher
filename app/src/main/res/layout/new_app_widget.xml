@@ -9,8 +9,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="@string/enrollment"
         android:contentDescription="@string/enrollment"
+        android:text="@string/enrollment"
         android:textSize="32sp"
         android:textStyle="italic|bold" />
 
@@ -18,8 +18,8 @@
         android:id="@+id/widget_total"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_below="@+id/widget_enrollment_hedding"
+        android:layout_centerHorizontal="true"
         android:textSize="22sp"
         android:textStyle="italic|bold" />
 
@@ -27,19 +27,19 @@
         android:id="@+id/health_widget"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="23dp"
-        android:layout_below="@+id/widget_total"
         android:layout_alignStart="@+id/widget_enrollment_hedding"
-        android:textStyle="bold"/>
+        android:layout_below="@+id/widget_total"
+        android:layout_marginTop="23dp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/wealth_widget"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/health_widget"
         android:layout_alignStart="@+id/health_widget"
+        android:layout_below="@+id/health_widget"
         android:layout_marginTop="22dp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
 
     <TextView
@@ -49,7 +49,7 @@
         android:layout_alignBaseline="@+id/wealth_widget"
         android:layout_alignBottom="@+id/wealth_widget"
         android:layout_alignEnd="@+id/widget_enrollment_hedding"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
 
     <TextView
@@ -60,8 +60,7 @@
         android:layout_alignBaseline="@+id/health_widget"
         android:layout_alignBottom="@+id/health_widget"
         android:layout_alignStart="@+id/love_widget"
-        android:textStyle="bold"/>
-
+        android:textStyle="bold" />
 
 
 </RelativeLayout>
