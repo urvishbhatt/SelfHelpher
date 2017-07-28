@@ -94,9 +94,11 @@ public class Courselib extends AppCompatActivity implements CourselibAdpater.Lis
         if (connectivityManager != null)
         {
             NetworkInfo netInfos = connectivityManager.getActiveNetworkInfo();
-            if(netInfos != null)
-                if(netInfos.isConnected())
+            if(netInfos != null) {
+                if (netInfos.isConnected()){
                     return true;
+                }
+            }
         }
         return false;
     }

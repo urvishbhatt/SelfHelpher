@@ -106,9 +106,11 @@ public class FirstWindows extends AppCompatActivity {
         if (connectivityManager != null)
         {
             NetworkInfo netInfos = connectivityManager.getActiveNetworkInfo();
-            if(netInfos != null)
-                if(netInfos.isConnected())
+            if(netInfos != null) {
+                if (netInfos.isConnected()) {
                     return true;
+                }
+            }
         }
         return false;
     }

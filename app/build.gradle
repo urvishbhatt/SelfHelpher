@@ -3,10 +3,10 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
         config {
-            keyAlias 'udacityinstructor'
-            keyPassword 'udacityselfhelp'
+            keyAlias 'Udacity'
+            keyPassword '123456789'
             storeFile file('$rootDir/keystore.jks')
-            storePassword 'udacityselfhelp'
+            storePassword '123456789'
         }
     }
     compileSdkVersion 25
