@@ -28,7 +28,7 @@
 
     <string name="enrollment">ENROLLMENT</string>
 
-    <string name="This_Course_is_already_in_database">This Course is already in database</string>
+    <string name="This_Course_is_already_in_database">You all ready enroll in this Course</string>
 
     <string name="nointenet_message">without internet we can not serve you</string>
 

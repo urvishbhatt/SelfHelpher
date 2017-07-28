@@ -225,7 +225,6 @@ public class MainWindow extends Fragment implements CourselibAdpater.ListItemCli
 
             int a = cursor.getColumnIndex(UserContract.UserEntry.PLAYLIST);
 
-
             int num = 0;
 
             while(cursor.moveToNext()){
