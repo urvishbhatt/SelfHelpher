@@ -1,12 +1,15 @@
 package com.example.bhatt.selfhelpher;
 
+import android.app.LoaderManager;
 import android.content.ContentValues;
+import android.content.CursorLoader;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
 import android.preference.TwoStatePreference;
 import android.support.annotation.Nullable;
 import android.app.Fragment;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,10 +21,12 @@ import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+
 import com.example.bhatt.selfhelpher.coursedatabase.CourseContract;
 import com.example.bhatt.selfhelpher.dataprovider.dataprovider;
 
-public class SubSelect extends Fragment {
+public class SubSelect extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
 
     private TextView healthtextView,wealthtextView,lovetextView,happinesstextView;
     private Intent intent;
@@ -29,6 +34,9 @@ public class SubSelect extends Fragment {
     private View fragment1;
 
     Animation animation;
+
+    String[] project;
+    int count;
 
     @Nullable
     @Override
@@ -42,34 +50,9 @@ public class SubSelect extends Fragment {
         }
 
 
-        String[] project = {
-                CourseContract.CourseEntry.SUBJECT,
-                CourseContract.CourseEntry.COURSEID,
-                CourseContract.CourseEntry.PLAYLIST };
 
+        getLoaderManager().initLoader(1,null,this);
 
-        Cursor cursor = getActivity().getContentResolver().query(
-                CourseContract.CourseEntry.CONTENT_URL,
-                project,
-                null,
-                null,
-                null
-        );
-
-
-
-
-        int count = cursor.getCount();
-
-        if (count == 0){
-
-            cursor.close();
-            EnterDatabase();
-
-        }else {
-
-            cursor.close();
-        }
 
         intent = new Intent(getActivity(),Courselib.class);
 
@@ -217,10 +200,47 @@ public class SubSelect extends Fragment {
 
                     }
                     break;
-
             }
+        }
+    }
+
+
+    @Override
+    public android.content.Loader<Cursor> onCreateLoader(int id, Bundle args) {
+
+        project = new String[]{
+                CourseContract.CourseEntry.SUBJECT,
+                CourseContract.CourseEntry.COURSEID,
+                CourseContract.CourseEntry.PLAYLIST};
+
+        return new CursorLoader(
+                getContext(),
+                CourseContract.CourseEntry.CONTENT_URL,
+                project,
+                null,
+                null,
+                null);
+
+    }
+
+    @Override
+    public void onLoadFinished(android.content.Loader<Cursor> loader, Cursor data) {
+
+        int count = data.getCount();
+
+        Log.e("new_onLoadFinished",String.valueOf(count));
+
+        if (count == 0){
+
+            EnterDatabase();
 
         }
+
+
+    }
+
+    @Override
+    public void onLoaderReset(android.content.Loader<Cursor> loader) {
 
     }
 }

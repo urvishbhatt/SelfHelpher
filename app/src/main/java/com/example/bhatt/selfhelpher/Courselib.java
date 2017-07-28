@@ -1,7 +1,10 @@
 package com.example.bhatt.selfhelpher;
 
+import android.app.LoaderManager;
 import android.content.Context;
+import android.content.CursorLoader;
 import android.content.Intent;
+import android.content.Loader;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -37,7 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Courselib extends AppCompatActivity implements CourselibAdpater.ListItemClickListener {
+public class Courselib extends AppCompatActivity implements CourselibAdpater.ListItemClickListener ,LoaderManager.LoaderCallbacks<Cursor> {
 
     private String subject;
     private int subjectno;
@@ -72,8 +75,13 @@ public class Courselib extends AppCompatActivity implements CourselibAdpater.Lis
 
 
         if (isNetworkStatusAvialable(getApplicationContext())){
-            databasework();
-            youtubework();
+
+            //used loader instead this//
+//            databasework();
+//            youtubework();
+            ///////////////////////
+
+            getLoaderManager().initLoader(3,null,this);
 
         }else {
             Toast.makeText(Courselib.this,getResources().getString(R.string.nointenet_message),Toast.LENGTH_LONG).show();
@@ -141,44 +149,47 @@ public class Courselib extends AppCompatActivity implements CourselibAdpater.Lis
 
     }
 
-    private void databasework() {
+    /***********************************************************************************************/
 
-        String[] project = {
-                CourseContract.CourseEntry.SUBJECT,
-                CourseContract.CourseEntry.COURSEID,
-                CourseContract.CourseEntry.PLAYLIST };
-
-
-        Cursor cursor = getContentResolver().query(
-                CourseContract.CourseEntry.CONTENT_URL,
-                project,
-                null,
-                null,
-                null
-        );
-
-        try{
-            int a = cursor.getColumnIndex(CourseContract.CourseEntry.SUBJECT);
-            int b = cursor.getColumnIndex(CourseContract.CourseEntry.PLAYLIST);
-
-
-            while(cursor.moveToNext()){
-
-                String name = cursor.getString(a);
-
-                if (name.equals(subject)){
-
-                    String Youtubeplaylist = cursor.getString(b);
-                    Youtubelinks.add(Youtubeplaylist);
-
-                }
-            }
-
-        }finally {
-            cursor.close();
-            YoutubelinksArray = Youtubelinks.toArray(new String[Youtubelinks.size()]);
-        }
-    }
+//    private void databasework() {
+//
+//        String[] project = {
+//                CourseContract.CourseEntry.SUBJECT,
+//                CourseContract.CourseEntry.COURSEID,
+//                CourseContract.CourseEntry.PLAYLIST };
+//
+//
+//        Cursor cursor = getContentResolver().query(
+//                CourseContract.CourseEntry.CONTENT_URL,
+//                project,
+//                null,
+//                null,
+//                null
+//        );
+//
+//        try{
+//            int a = cursor.getColumnIndex(CourseContract.CourseEntry.SUBJECT);
+//            int b = cursor.getColumnIndex(CourseContract.CourseEntry.PLAYLIST);
+//
+//
+//            while(cursor.moveToNext()){
+//
+//                String name = cursor.getString(a);
+//
+//                if (name.equals(subject)){
+//
+//                    String Youtubeplaylist = cursor.getString(b);
+//                    Youtubelinks.add(Youtubeplaylist);
+//
+//                }
+//            }
+//
+//        }finally {
+//            cursor.close();
+//            YoutubelinksArray = Youtubelinks.toArray(new String[Youtubelinks.size()]);
+//        }
+//    }
+    /**********************************************************************************************/
 
     @Override
     public void onListItemClick(int clickedItemIndex) {
@@ -207,4 +218,55 @@ public class Courselib extends AppCompatActivity implements CourselibAdpater.Lis
     public boolean onMenuOpened(int featureId, Menu menu) {
         return false;
     }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+
+        String[] project = {
+                CourseContract.CourseEntry.SUBJECT,
+                CourseContract.CourseEntry.COURSEID,
+                CourseContract.CourseEntry.PLAYLIST };
+
+
+        return new CursorLoader(
+                getApplicationContext(),
+                CourseContract.CourseEntry.CONTENT_URL,
+                project,
+                null,
+                null,
+                null);
+
+
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+
+        try{
+            int a = cursor.getColumnIndex(CourseContract.CourseEntry.SUBJECT);
+            int b = cursor.getColumnIndex(CourseContract.CourseEntry.PLAYLIST);
+
+
+            while(cursor.moveToNext()){
+
+                String name = cursor.getString(a);
+
+                if (name.equals(subject)){
+
+                    String Youtubeplaylist = cursor.getString(b);
+                    Youtubelinks.add(Youtubeplaylist);
+
+                }
+            }
+
+        }finally {
+
+            YoutubelinksArray = Youtubelinks.toArray(new String[Youtubelinks.size()]);
+            youtubework();
+        }
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {}
 }

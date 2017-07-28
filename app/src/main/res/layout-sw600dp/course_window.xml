@@ -7,10 +7,15 @@
     android:layout_height="match_parent"
     android:background="@drawable/subselect">
 
+    <include
+        android:id="@+id/course_windows_appbar"
+        layout="@layout/app_bar"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_below="@+id/course_windows_appbar">
 
         <FrameLayout
             android:id="@+id/fragment1"
@@ -20,8 +25,8 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="8"
             android:layout_height="match_parent"
+            android:layout_weight="8"
             android:orientation="vertical">
 
             <FrameLayout
@@ -33,10 +38,9 @@
                 android:id="@+id/fragment3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/white"/>
+                android:background="@android:color/white" />
 
         </LinearLayout>
-
 
 
     </LinearLayout>

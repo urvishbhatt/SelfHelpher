@@ -2,10 +2,13 @@ package com.example.bhatt.selfhelpher;
 
 import android.app.FragmentTransaction;
 import android.content.ContentValues;
+import android.content.CursorLoader;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -25,13 +28,12 @@ import com.example.bhatt.selfhelpher.UserDatabase.Useropenhelper;
 import com.example.bhatt.selfhelpher.coursedatabase.CourseContract;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
-public class CourseWindow extends AppCompatActivity {
-
+public class CourseWindow extends AppCompatActivity implements android.app.LoaderManager.LoaderCallbacks<Cursor> {
 
 
     Videolistfragment fragment1;
 
-    private String plylistid,subject;
+    private String plylistid, subject;
     private double Course_id;
 
     private Button buttn;
@@ -49,7 +51,7 @@ public class CourseWindow extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
 
-        Intent intent = new Intent(CourseWindow.this,FirstWindows.class);
+        Intent intent = new Intent(CourseWindow.this, FirstWindows.class);
         startActivity(intent);
 
     }
@@ -59,12 +61,12 @@ public class CourseWindow extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.course_window);
 
-        toolbar = (Toolbar)findViewById(R.id.course_windows_appbar);
+        toolbar = (Toolbar) findViewById(R.id.course_windows_appbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        buttn = (Button)findViewById(R.id.Enroll_button);
+        buttn = (Button) findViewById(R.id.Enroll_button);
         buttn.setEnabled(true);
         buttn.setVisibility(View.VISIBLE);
 
@@ -72,7 +74,7 @@ public class CourseWindow extends AppCompatActivity {
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
-        if (findViewById(R.id.fragment2)!=null){
+        if (findViewById(R.id.fragment2) != null) {
 
             issecondfragment = true;
         }
@@ -83,12 +85,12 @@ public class CourseWindow extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                if (INTENT_TAG.equals("MainWindow")){
+                if (INTENT_TAG.equals("MainWindow")) {
 
-                    Intent intent = new Intent(CourseWindow.this,FirstWindows.class);
+                    Intent intent = new Intent(CourseWindow.this, FirstWindows.class);
                     startActivity(intent);
 
-                }else {
+                } else {
 
 
                     finish();
@@ -98,7 +100,7 @@ public class CourseWindow extends AppCompatActivity {
         });
 
 
-        if (INTENT_TAG.equals("MainWindow")){
+        if (INTENT_TAG.equals("MainWindow")) {
 
             plylistid = getIntent().getStringExtra("plylistid");
 
@@ -108,77 +110,76 @@ public class CourseWindow extends AppCompatActivity {
             buttn.setVisibility(View.VISIBLE);
 
 
-
-        }else {
+        } else {
 
             plylistid = getIntent().getStringExtra("plylistid");
             subject = getIntent().getStringExtra("subject");
-            Course_id = getIntent().getDoubleExtra("Course_id",0.0);
+            Course_id = getIntent().getDoubleExtra("Course_id", 0.0);
 
-            checkindatabse();
-            IToast();
+//            checkindatabse();
+//            IToast();
+
+            getLoaderManager().initLoader(4,null,this);
         }
 
 
-        final Intent intent = new Intent(CourseWindow.this,FirstWindows.class);
+        final Intent intent = new Intent(CourseWindow.this, FirstWindows.class);
 
 
         buttn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Animation animation = AnimationUtils.loadAnimation(CourseWindow.this,R.anim.blink);
+                Animation animation = AnimationUtils.loadAnimation(CourseWindow.this, R.anim.blink);
                 buttn.startAnimation(animation);
 
-                if ((buttn.getText().equals(getResources().getString(R.string.enroll)))){
+                if ((buttn.getText().equals(getResources().getString(R.string.enroll)))) {
 
 
                     ContentValues values = new ContentValues();
 
-                    values.put(UserContract.UserEntry.SUBJECT,subject);
-                    values.put(UserContract.UserEntry.COURSEID,Course_id);
-                    values.put(UserContract.UserEntry.PLAYLIST,plylistid);
+                    values.put(UserContract.UserEntry.SUBJECT, subject);
+                    values.put(UserContract.UserEntry.COURSEID, Course_id);
+                    values.put(UserContract.UserEntry.PLAYLIST, plylistid);
 
-                    getContentResolver().insert(UserContract.UserEntry.CONTENT_URL,values);
+                    getContentResolver().insert(UserContract.UserEntry.CONTENT_URL, values);
 
                     Bundle bundle = new Bundle();
-                    bundle.putString(FirebaseAnalytics.Param.ITEM_ID,"Enrollments");
-                    bundle.putString(FirebaseAnalytics.Param.ITEM_NAME,subject);
-                    bundle.putDouble(FirebaseAnalytics.Param.INDEX,Course_id);
-                    bundle.putString(FirebaseAnalytics.Param.CONTENT,plylistid);
-                    mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT,bundle);
+                    bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "Enrollments");
+                    bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, subject);
+                    bundle.putDouble(FirebaseAnalytics.Param.INDEX, Course_id);
+                    bundle.putString(FirebaseAnalytics.Param.CONTENT, plylistid);
+                    mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
                     startActivity(intent);
 
-                }else {
+                } else {
 
 
-                    String DELETEQUERY = UserContract.UserEntry.COURSEID +"=?";
+                    String DELETEQUERY = UserContract.UserEntry.COURSEID + "=?";
 
                     new UserDataUtil(plylistid);
 
-                    String[] selectionArgs = { plylistid };
+                    String[] selectionArgs = {plylistid};
 
-                    int i = getContentResolver().delete(UserContract.UserEntry.CONTENT_URL,DELETEQUERY,selectionArgs);
+                    int i = getContentResolver().delete(UserContract.UserEntry.CONTENT_URL, DELETEQUERY, selectionArgs);
 
-                    if (i != 0){
+                    if (i != 0) {
 
-                        Toast.makeText(CourseWindow.this,"successfully enrolled",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CourseWindow.this, "successfully enrolled", Toast.LENGTH_SHORT).show();
                         buttn.setText(getResources().getText(R.string.enroll));
-                    }else {
-                        Toast.makeText(CourseWindow.this,"some problem occur",Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(CourseWindow.this, "some problem occur", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
         });
 
 
-
-
         /**************************************************/
 
         fragment1 = new Videolistfragment();
-        getFragmentManager().beginTransaction().add(R.id.fragment1,fragment1).commit();
+        getFragmentManager().beginTransaction().add(R.id.fragment1, fragment1).commit();
 
         /*****************************************************/
 
@@ -186,42 +187,97 @@ public class CourseWindow extends AppCompatActivity {
 
     private void IToast() {
 
-        if (DATA_IN_DATABASE){
+        if (DATA_IN_DATABASE) {
 
-            Toast.makeText(CourseWindow.this,getResources().getText(R.string.This_Course_is_already_in_database),Toast.LENGTH_SHORT).show();
+            Toast.makeText(CourseWindow.this, getResources().getText(R.string.This_Course_is_already_in_database), Toast.LENGTH_SHORT).show();
 
         }
     }
 
-    private void checkindatabse() {
+    /*********************************************************************************************/
+//    private void checkindatabse() {
+//
+//        String[] project = {UserContract.UserEntry.COURSEID};
+//
+//        Cursor cursor = getContentResolver().query(
+//                UserContract.UserEntry.CONTENT_URL,
+//                project,
+//                null,
+//                null,
+//                null
+//        );
+//
+//
+//        int count = cursor.getCount();
+//
+//        if (count == 0) {
+//
+//            DATA_IN_DATABASE = false;
+//
+//        } else {
+//
+//            try {
+//                int a = cursor.getColumnIndex(UserContract.UserEntry.COURSEID);
+//
+//                while (cursor.moveToNext()) {
+//
+//                    double course_id = cursor.getDouble(a);
+//
+//                    if (course_id == Course_id) {
+//
+//                        DATA_IN_DATABASE = true;
+//                        buttn.setEnabled(false);
+//                        buttn.setVisibility(View.GONE);
+//
+//                        break;
+//                    }
+//                }
+//            } finally {
+//
+//                if (cursor != null) {
+//                    cursor.close();
+//                }
+//            }
+//
+//        }
+//    }
 
-        String[] project = { UserContract.UserEntry.COURSEID };
+    /************************************************************************************************/
 
-        Cursor cursor = getContentResolver().query(
+    @Override
+    public android.content.Loader<Cursor> onCreateLoader(int id, Bundle args) {
+
+        String[] project = {UserContract.UserEntry.COURSEID};
+
+        return new CursorLoader(
+                getApplicationContext(),
                 UserContract.UserEntry.CONTENT_URL,
                 project,
                 null,
                 null,
-                null
-        );
+                null);
 
+    }
+
+    @Override
+    public void onLoadFinished(android.content.Loader<Cursor> loader, Cursor cursor) {
 
         int count = cursor.getCount();
 
-        if (count == 0){
+        if (count == 0) {
 
             DATA_IN_DATABASE = false;
 
-        }else {
+        } else {
 
-            try{
+            try {
                 int a = cursor.getColumnIndex(UserContract.UserEntry.COURSEID);
 
-                while(cursor.moveToNext()){
+                while (cursor.moveToNext()) {
 
                     double course_id = cursor.getDouble(a);
 
-                    if (course_id == Course_id){
+                    if (course_id == Course_id) {
 
                         DATA_IN_DATABASE = true;
                         buttn.setEnabled(false);
@@ -230,15 +286,22 @@ public class CourseWindow extends AppCompatActivity {
                         break;
                     }
                 }
-            }
-            finally {
+            } finally {
 
-                if (cursor != null){
-                    cursor.close();
-                }
+                IToast();
             }
 
         }
+
     }
 
-}
+        @Override
+        public void onLoaderReset (android.content.Loader < Cursor > loader) {
+
+        }
+
+
+        /***********************************************************************************************/
+
+    }
+

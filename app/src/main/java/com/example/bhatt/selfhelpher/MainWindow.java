@@ -1,8 +1,11 @@
 package com.example.bhatt.selfhelpher;
 
 import android.app.Activity;
+import android.app.LoaderManager;
 import android.content.Context;
+import android.content.CursorLoader;
 import android.content.Intent;
+import android.content.Loader;
 import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -41,7 +44,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
-public class MainWindow extends Fragment implements CourselibAdpater.ListItemClickListener{
+public class MainWindow extends Fragment implements CourselibAdpater.ListItemClickListener ,LoaderManager.LoaderCallbacks<Cursor>{
 
 
     private String[] YoutubelinksArray;
@@ -90,15 +93,17 @@ public class MainWindow extends Fragment implements CourselibAdpater.ListItemCli
 
         recyclerView = (RecyclerView)fragment2.findViewById(R.id.mainwindow_recycleview);
 
-        databasework();
-        youtubework();
+//        databasework();
+        getLoaderManager().initLoader(2,null,this);
+
+//        youtubework();
 
         return fragment2;
     }
 
 
 
-
+    /*************************************************************************************/
 
     private void databasework() {
 
@@ -134,6 +139,8 @@ public class MainWindow extends Fragment implements CourselibAdpater.ListItemCli
             YoutubelinksArray = Youtubelinks.toArray(new String[Youtubelinks.size()]);
         }
     }
+
+    /*********************************************************************************************/
 
     private void youtubework() {
 
@@ -192,9 +199,53 @@ public class MainWindow extends Fragment implements CourselibAdpater.ListItemCli
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
+        super.onDestroy();}
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+
+        String[] project = {
+                UserContract.UserEntry.PLAYLIST };
 
 
+        return new CursorLoader(
+                getContext(),
+                UserContract.UserEntry.CONTENT_URL,
+                project,
+                null,
+                null,
+                null);
+
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+
+        try{
+
+            int a = cursor.getColumnIndex(UserContract.UserEntry.PLAYLIST);
+
+
+            int num = 0;
+
+            while(cursor.moveToNext()){
+
+                Youtubelinks.add(cursor.getString(a));
+
+                num++;
+            }
+
+
+        }finally {
+            YoutubelinksArray = Youtubelinks.toArray(new String[Youtubelinks.size()]);
+
+            youtubework();
+        }
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
 
     }
 }

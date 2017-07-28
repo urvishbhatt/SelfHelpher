@@ -1,7 +1,9 @@
 package com.example.bhatt.selfhelpher;
 
+import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.Loader;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -17,6 +19,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Toast;
+
 
 import com.example.bhatt.selfhelpher.UserDatabase.UserContract;
 
@@ -75,7 +78,6 @@ public class FirstWindows extends AppCompatActivity {
                 if (IS_IN_DATABASE){
 
 
-
                     if (savedInstanceState == null){
                         mainwindow = new MainWindow();
                         getFragmentManager().beginTransaction().add(R.id.mainwindow_fragment2,mainwindow).commit();
@@ -112,7 +114,10 @@ public class FirstWindows extends AppCompatActivity {
     }
 
 
+    /*****************************************/
     private void checkindatabse() {
+
+        ////*************this method is only check weather cursor is null or not i don't thing for that need to use loader****************//
 
         String[] project = { UserContract.UserEntry.COURSEID };
 
@@ -124,21 +129,15 @@ public class FirstWindows extends AppCompatActivity {
                 null
         );
 
-
         int count = cursor.getCount();
 
         if (count == 0){
-
             IS_IN_DATABASE = false;
-
         }else {
-
             IS_IN_DATABASE = true;
-
         }
-
-
     }
+    /******************************************/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -176,4 +175,6 @@ public class FirstWindows extends AppCompatActivity {
         super.onSaveInstanceState(outState);
 
     }
+
+
 }
